@@ -1,7 +1,5 @@
 from package.maths.terms import Reta
 
-
-
 def workspace():
 
     segmento_1 = Reta(2,3)
