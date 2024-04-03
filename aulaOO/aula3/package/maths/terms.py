@@ -16,3 +16,6 @@ class Reta():
     def model(self):
 
         print(f'Os parâmertros do meu modelo de reta são: a={self.a}, b={self.b}')
+
+class Circle():
+    pass
