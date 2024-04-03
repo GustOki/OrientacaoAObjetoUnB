@@ -1,9 +1,22 @@
-import testbench_01
+from package.maths.terms import Circle
 
-reta = testbench_01.Reta(5,4)
+def workspace():
+    circulo_1 = Circle(3, 7, 5, "vermelho")
+    circulo_1.model()
+    print(f'circunferencia: {circulo_1.circunferencia()}')
+    print(f'area: {circulo_1.area()}')
+    print(f'diametro: {circulo_1.diametro()}')
 
-reta.model()
+if __name__ == "__main__":
 
-print('Chamada de workspace()')
+    print("O arquivo 'testbench.py' foi envocado como programa")
+    print(f'__name__ == {__name__}')
+    workspace()
 
-testbench_01.workspace()
+else:
+
+    print("o arquivo 'testbench.py' foi envocado como modulo")
+    print(f'__name__ == {__name__}')
+
+    
+

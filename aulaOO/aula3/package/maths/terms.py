@@ -18,4 +18,24 @@ class Reta():
         print(f'Os parâmertros do meu modelo de reta são: a={self.a}, b={self.b}')
 
 class Circle():
-    pass
+    def __init__(self, r, x, y, color):
+        self.r = r
+        self.x = x
+        self.y = y
+        self.color = color
+
+
+    def circunferencia(self):
+        circunferencia = (2 * 3.14) * self.r
+        return circunferencia
+
+    def area(self):
+        area = 3.14 * pow(self.r, 2)
+        return area
+
+    def diametro(self):
+        diametro = self.r * 2
+        return diametro
+
+    def model(self):
+        print(f'Os parâmertros do meu modelo de reta são: r={self.r}, x={self.x}, y={self.y} e cor={self.color}.')
