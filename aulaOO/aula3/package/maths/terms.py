@@ -38,4 +38,4 @@ class Circle():
         return diametro
 
     def model(self):
-        print(f'Os parâmertros do meu modelo de reta são: r={self.r}, x={self.x}, y={self.y} e cor={self.color}.')
+        print(f'Os parâmertros do meu modelo de circulo são: r={self.r}, x={self.x}, y={self.y} e cor={self.color}.')
