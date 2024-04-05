@@ -1,2 +1,1 @@
-Este repositório tem como propósito armazenar todos os códigos-rascunhos e exercícios feitos para a matéria Orientação a Objetos,ministrada pelo professor Henrique.
-A linguagem de programação majoritária deste repositório é Python.
+Este repositório tem como propósito armazenar todos os códigos-rascunhos e exercícios feitos para a matéria Orientação a Objetos com foco em linguagem Python, ministrada pelo professor Henrique.
