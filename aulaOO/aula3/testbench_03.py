@@ -1,9 +1,11 @@
 from package.maths.terms import Point, Circle
 
 def workspace():
-    ponto_1 = Point(5, 6)
-    print(f'Distancia da origem = {ponto_1.distance()}')
-    ponto_1.model()
+    point_1 = Point(5, 6)
+    print(f'Distancia da origem = {point_1.distance()}')
+    
+    circle_1 = Circle(2,3,6)
+    circle_1.print()
     
 
 if __name__ == "__main__":
