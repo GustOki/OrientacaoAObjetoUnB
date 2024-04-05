@@ -51,6 +51,16 @@ class Circle(Point):
     def print(self):
         print(f'Eu sou um círculo e minhas coordenadas são: x = {self._x} e y = {self._y}. O meu raio é {self._raio}')
 
+#segundo modelo
+class Circle_2():
+    def __init__(self, x, y, raio):
+        self._origem = Point(x, y)
+        self._raio = raio
+
+    def print(self):
+        print(f'Eu sou um segundo modelo para o circulo. Minhas coordenadas são: x = {self._origem.getX()} e y = {self._origem.getY()}. Meu raio é {self._raio}')
+
+
 # MEU CODIGO RASCUNHO
 # class Circle():
 #     def __init__(self, r, x, y, color):
