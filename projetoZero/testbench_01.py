@@ -1,8 +1,12 @@
-from package.maths.terms import Circle
+from package.maths.terms import Reta
 
 def workspace():
-    circulo_1 = Circle(3, 7, 5)
-    circulo_1.print()
+
+    segmento_1 = Reta(3, 7, "verde")
+    segmento_1.model()
+    print(f'Interpolando o valor 4: y = {segmento_1.interpolar(4)}')
+
+
 
 if __name__ == "__main__":
 
@@ -14,6 +18,3 @@ else:
 
     print("o arquivo 'testbench.py' foi envocado como modulo")
     print(f'__name__ == {__name__}')
-
-    
-
