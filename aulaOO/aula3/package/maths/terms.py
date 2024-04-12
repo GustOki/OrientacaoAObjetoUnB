@@ -39,9 +39,6 @@ class Point():
     
     def print(self):
         print(f'Eu sou um ponto e minhas coordenadas são: x = {self._x} e y = {self._y}')
-    
-    def model(self):
-        print(f'Os parâmetros do meu modelo de ponto são: coordenada=({self.x}, {self.y}), cor {self.color} e com o nome de P{self.name}')
 
 class Circle(Point):
     def __init__(self, x, y, raio):
