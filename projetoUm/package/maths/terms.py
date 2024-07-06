@@ -1,5 +1,5 @@
 #Classe Reta
-class Reta():
+class Line():
 
     def __init__(self,a,b, color):
 
@@ -21,8 +21,11 @@ class Reta():
 #Classe Ponto
 class Point():
     def __init__(self, x, y):
-        self._x = x
-        self._y = y
+        self.setX(x)
+        self._x = self.getX()
+
+        self.setY(y)
+        self._y = self.getY()
 
     def setX(self, x):
         self._x = x
