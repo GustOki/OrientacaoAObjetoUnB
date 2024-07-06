@@ -1,3 +1,5 @@
+import math
+
 #Classe Reta
 class Line():
 
@@ -42,7 +44,7 @@ class Point():
     def distance(self):
         return(self._x**2 + self._y**2)**(0.5)
     
-    def print(self):
+    def model(self):
         print(f'Eu sou um ponto e minhas coordenadas são: x = {self._x} e y = {self._y}')
 
 #Classe Circulo
@@ -50,6 +52,13 @@ class Circle(Point):
     def __init__(self, x, y, raio):
         super().__init__(x, y)
         self._raio = raio
+        self._diametro = (self._raio)*2
 
-    def print(self):
-        print(f'Eu sou um círculo e minhas coordenadas são: x = {self._x} e y = {self._y}. O meu raio é {self._raio}')
+    def model(self):
+        print(f'Eu sou um círculo e minhas coordenadas são: x = {self._x} e y = {self._y}. O meu raio é {self._raio} e meu diâmetro é {self._diametro}')
+
+#Classe Triangulo
+class Triangle(Point):
+    def __init__(self, x, y, z):
+        super().__init__(x, y, z)
+
