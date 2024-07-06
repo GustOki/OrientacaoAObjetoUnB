@@ -28,24 +28,28 @@ class Point():
 
 
 #Classe Reta
-class Line():
+class Line(Point):
 
-    def __init__(self,a,b, color):
+    def __init__(self, pointOrigem, pointFim, color):
 
-        self.a = a
-        self.b = b
-        self.color = color
+        self._pointOrigem = pointOrigem
+        self._pointFim = pointFim
+        self._color = color
 
 
-    def interpolar(self,x):
+    def interpolar(self, x):
 
-        y = self.a * x + self.b
+        y = self._pointOrigem * x + self._pointFim
         return y
+    
+    def comprimento(self):
+        comprimento = math.sqrt((self._pointFim.x - self._pointOrigem.x)**2 + (self._pointFim.y - self._pointOrigem.y)**2)
+        return comprimento
 
     
     def model(self):
 
-        print(f'Os parâmetros do meu modelo de reta são: a={self.a}, b={self.b} e de cor {self.color}!')
+        print(f'As coordenadas da minha reta tem um ponto de origem em: {self._pointOrigem} e ponto final em: {self._pointFim}, de cor {self._color}!')
 
 
 #Classe Circulo
