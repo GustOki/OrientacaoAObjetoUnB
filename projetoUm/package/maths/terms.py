@@ -1,5 +1,32 @@
 import math
 
+
+#Classe Ponto
+class Point():
+    def __init__(self, x, y):
+        self._x = x
+        self._y = y
+
+    def setX(self, x):
+        self._x = x
+    
+    def setY(self, y):
+        self._y = y
+    
+    def getX(self):
+        return self._x
+    
+    def getY(self):
+        return self._y
+
+    def distance(self):
+        distance = math.sqrt(self._x**2 + self._y**2)
+        return distance
+    
+    def model(self):
+        print(f'Eu sou um ponto e minhas coordenadas são: x = {self._x} e y = {self._y}')
+
+
 #Classe Reta
 class Line():
 
@@ -20,32 +47,6 @@ class Line():
 
         print(f'Os parâmetros do meu modelo de reta são: a={self.a}, b={self.b} e de cor {self.color}!')
 
-#Classe Ponto
-class Point():
-    def __init__(self, x, y):
-        self.setX(x)
-        self._x = self.getX()
-
-        self.setY(y)
-        self._y = self.getY()
-
-    def setX(self, x):
-        self._x = x
-    
-    def setY(self, y):
-        self._y = y
-    
-    def getX(self):
-        return self._x
-    
-    def getY(self):
-        return self._y
-
-    def distance(self):
-        return(self._x**2 + self._y**2)**(0.5)
-    
-    def model(self):
-        print(f'Eu sou um ponto e minhas coordenadas são: x = {self._x} e y = {self._y}')
 
 #Classe Circulo
 class Circle(Point):
@@ -56,9 +57,4 @@ class Circle(Point):
 
     def model(self):
         print(f'Eu sou um círculo e minhas coordenadas são: x = {self._x} e y = {self._y}. O meu raio é {self._raio} e meu diâmetro é {self._diametro}')
-
-#Classe Triangulo
-class Triangle(Point):
-    def __init__(self, x, y, z):
-        super().__init__(x, y, z)
 
