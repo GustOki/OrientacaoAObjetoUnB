@@ -1,7 +1,7 @@
 from package.maths.terms import Point
 
 def workspace():
-    point_1 = Point(5, 6)
+    point_1 = Point(1, 5, 6)
     point_1.model()
     print(f'Distancia da origem = {point_1.distance()}')
 

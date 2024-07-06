@@ -3,9 +3,13 @@ import math
 
 #Classe Ponto
 class Point():
-    def __init__(self, x, y):
+    def __init__(self, n, x, y):
+        self._n = n
         self._x = x
         self._y = y
+
+    def setN(self, n):
+        self._n = n
 
     def setX(self, x):
         self._x = x
@@ -13,6 +17,9 @@ class Point():
     def setY(self, y):
         self._y = y
     
+    def getN(self):
+        return self._n
+
     def getX(self):
         return self._x
     
@@ -24,7 +31,7 @@ class Point():
         return distance
     
     def model(self):
-        print(f'Eu sou um ponto e minhas coordenadas são: x = {self._x} e y = {self._y}')
+        print(f'As coordenadas do ponto {self._n} são: x = {self._x} e y = {self._y}')
 
 
 #Classe Reta
