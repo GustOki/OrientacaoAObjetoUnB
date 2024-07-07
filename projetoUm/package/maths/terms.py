@@ -61,7 +61,7 @@ class Point():
         print(f"Informação: {point[infoPoint]}\ncor: {color[infoPoint]}")
 
 
-#Classe Reta
+#Classe Reta ARRUMAR AQUI DEPOIS
 class Line():
 
     def __init__(self, n):
