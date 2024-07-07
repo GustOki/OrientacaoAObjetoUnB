@@ -84,9 +84,12 @@ class Line():
         if len(self._coord) >= 2:
             deltaX = self._coord[1][0]-self._coord[0][0]
             deltaY = self._coord[1][1]-self._coord[0][1]
-            inclinacao = deltaY/deltaX
             
-            return inclinacao
+            if deltaX > 0:
+                inclinacao = deltaY/deltaX
+                return inclinacao
+            else:
+                return "o seu delta X = 0, tente outro caso!"
         
         elif len(self._coord) == 1:
             inclinacao = self._coord[0][1]/self._coord[0][0]
@@ -94,9 +97,12 @@ class Line():
 
     def CoefLinear(self, m): #m = coefc. angular vindo da inclinação
         self._m = m
-        b = self._coord[0][1] - self._coord[0][0]* self._m
         
-        return b
+        if type(self._m) == float:
+            b = self._coord[0][1] - self._coord[0][0]* self._m
+            return b
+        else:
+            return "O seu delta X = 0, tente outro caso!"
 
     def montarTabela(self, m, b, i):
         print(f"__TABELA__\n  X | Y  ")
@@ -108,9 +114,6 @@ class Line():
     def interpolar(self, m, b, x):
         y = m*x+b
         return y
-
-    def model(self):
-        print(f'As coordenadas da minha reta tem um ponto de origem em: {self._pointOrigem} e ponto final em: {self._pointFim}, de cor {self._color}!')
 
 #Classe Auxiliar do Circle
 class coordCircle: 
