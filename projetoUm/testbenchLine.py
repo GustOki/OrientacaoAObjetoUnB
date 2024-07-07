@@ -1,12 +1,20 @@
 from package.maths.terms import Line
 
 def workspace():
+    n = int(input("Digite o número de pontos na reta: "))
 
-    segmento_1 = Line(3, 7, "verde")
-    segmento_1.model()
-    print(f'Interpolando o valor 4: y = {segmento_1.interpolar(4)}')
-    print(f'O comprimento da reta é de {segmento_1.comprimento()}')
+    lineObj = Line(n)
+    m = lineObj.inclinacao()
+    b = lineObj.CoefLinear(lineObj.inclinacao())
 
+    print(f"O valor de m será: {m}")
+    print(f"O valor de b será: {b}")
+
+    i = int(input("Quantidade de iterações: "))
+    lineObj.montarTabela(m, b, i)
+
+    y = lineObj.interpolar(m, b, i)
+    print(y)
 
 
 if __name__ == "__main__":

@@ -1,8 +1,18 @@
-from package.maths.terms import Circle
+from package.maths.terms import Circle, coordCircle
 
 def workspace():
-    circulo_1 = Circle(1, 3, 7, 5)
-    circulo_1.model()
+    coord = coordCircle()
+    raio = float(input("Digite o raio: "))
+
+    circleObj = Circle(coord.coordenadaX(),coord.coordenadaY(), raio)
+    circunf = circleObj.circunferenciaCircle()
+    print(f"Circunferencia: {circunf}")
+    
+    area = circleObj.areaCircle()
+    print(f"Area: {area}")
+    
+    diametro = circleObj.diametroCircle()
+    print(f"Diametro: {diametro}")
 
 if __name__ == "__main__":
 
