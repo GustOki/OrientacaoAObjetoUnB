@@ -1,9 +1,22 @@
 from package.maths.terms import Point
 
 def workspace():
-    point_1 = Point(1, 5, 6)
-    point_1.model()
-    print(f'Distancia da origem = {point_1.distance()}')
+    qtd = int(input(f"Digite a quantidade de pontos: "))
+    pointObj = Point(qtd)
+
+    color = pointObj.color()
+    coord = pointObj.coordenada()
+    print(f"Cores: {color}\n")
+    print(f"Coordenadas: {coord}\n")
+
+    pointObj.setPointX(coord)
+    pointObj.setPointY(coord)
+
+    x = pointObj.returnPointX(coord)
+    y = pointObj.returnPointY(coord)
+    print(f'{x}')
+    print(f'{y}')
+    print(f"Novas coordenadas: {coord}")
 
 if __name__ == "__main__":
 

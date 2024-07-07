@@ -3,35 +3,62 @@ from abc import ABC, abstractmethod
 
 #Classe Ponto
 class Point():
-    def __init__(self, n, x, y):
+    def __init__(self, n):
         self._n = n
-        self._x = x
-        self._y = y
+        
+    def color(self):
+        colorPoint = []
+        for i in range(0, self._n):
+            color = str(input(f"Digite a cor do ponto nº{i}: "))
+            colorPoint.append(color)
+        return colorPoint
 
-    def setN(self, n):
-        self._n = n
+    def coordenada(self):
+        coordPoint = []
+        for i in range(0, self._n):
+            x = int(input(f"Digite a coordenada X do ponto nº{i}: "))
+            y = int(input(f"Digite a coordenada Y do ponto nº{i}: "))
+            vetorCoord = []
+            vetorCoord.append(x)
+            vetorCoord.append(y)
+            coordPoint.append(vetorCoord)
+        return coordPoint
+    
+    def returnPointX(self, point):
+        self._point = point
+        vetorX = {}
+        for i in range(0, self._n):
+            vetorX[f'x{i}'] = self._point[i][0]
+        return vetorX
+    
+    def returnPointY(self, point):
+        self._point = point
+        vetorY = {}
+        for i in range(0, self._n):
+            vetorY[f'y{i}'] = self._point[i][1]
+        return (vetorY)
+    
+    def setPointX(self, point):
+        self._point = point
+        for i in range(0, self._n):
+            numX = int(input(f'Digite o novo valor do ponto x nº{i}: '))
+            point[i].pop(0)
+            point[i].insert(0, numX)
 
-    def setX(self, x):
-        self._x = x
-    
-    def setY(self, y):
-        self._y = y
-    
-    def getN(self):
-        return self._n
-
-    def getX(self):
-        return self._x
-    
-    def getY(self):
-        return self._y
+    def setPointY(self, point):
+        self._point = point
+        for i in range(0, self._n):
+            numY = int(input(f'Digite o novo valor do ponto y nº{i}: '))
+            point[i].pop(0)
+            point[i].insert(0, numY)
 
     def distance(self):
         distance = math.sqrt(self._x**2 + self._y**2)
         return distance
     
-    def model(self):
-        print(f'As coordenadas do ponto {self._n} são: x = {self._x} e y = {self._y}')
+    def returnPoint(self, point, color):
+        infoPoint = int(input(f"Dado os pontos: {point}\n. Digite qual index queira acessar para obter informações do ponto: "))
+        print(f"Informação: {point[infoPoint]}\ncor: {color[infoPoint]}")
 
 
 #Classe Reta
