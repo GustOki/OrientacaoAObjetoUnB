@@ -11,35 +11,44 @@ class Point():
         for i in range(0, self._n):
             color = str(input(f"Digite a cor do ponto nº{i}: "))
             colorPoint.append(color)
+
         return colorPoint
 
     def coordenada(self):
         coordPoint = []
+
         for i in range(0, self._n):
             x = int(input(f"Digite a coordenada X do ponto nº{i}: "))
             y = int(input(f"Digite a coordenada Y do ponto nº{i}: "))
+
             vetorCoord = []
             vetorCoord.append(x)
             vetorCoord.append(y)
             coordPoint.append(vetorCoord)
+
         return coordPoint
     
     def returnPointX(self, point):
         self._point = point
         vetorX = {}
+
         for i in range(0, self._n):
             vetorX[f'x{i}'] = self._point[i][0]
+
         return vetorX
     
     def returnPointY(self, point):
         self._point = point
         vetorY = {}
+
         for i in range(0, self._n):
             vetorY[f'y{i}'] = self._point[i][1]
+        
         return (vetorY)
     
     def setPointX(self, point):
         self._point = point
+        
         for i in range(0, self._n):
             numX = int(input(f'Digite o novo valor do ponto x nº{i}: '))
             point[i].pop(0)
@@ -47,6 +56,7 @@ class Point():
 
     def setPointY(self, point):
         self._point = point
+        
         for i in range(0, self._n):
             numY = int(input(f'Digite o novo valor do ponto y nº{i}: '))
             point[i].pop(0)
@@ -58,6 +68,7 @@ class Point():
     
     def returnPoint(self, point, color):
         infoPoint = int(input(f"Dado os pontos: {point}\n. Digite qual index queira acessar para obter informações do ponto: "))
+        
         print(f"Informação: {point[infoPoint]}\ncor: {color[infoPoint]}")
 
 
@@ -74,6 +85,7 @@ class Line():
             deltaX = self._coord[1][0]-self._coord[0][0]
             deltaY = self._coord[1][1]-self._coord[0][1]
             inclinacao = deltaY/deltaX
+            
             return inclinacao
         
         elif len(self._coord) == 1:
@@ -83,10 +95,12 @@ class Line():
     def CoefLinear(self, m): #m = coefc. angular vindo da inclinação
         self._m = m
         b = self._coord[0][1] - self._coord[0][0]* self._m
+        
         return b
 
     def montarTabela(self, m, b, i):
         print(f"__TABELA__\n  X | Y  ")
+        
         for x in range(0,i):
             y = m*x + b
             print(f"  {x} | {y}  ")
@@ -95,9 +109,7 @@ class Line():
         y = m*x+b
         return y
 
-    
     def model(self):
-
         print(f'As coordenadas da minha reta tem um ponto de origem em: {self._pointOrigem} e ponto final em: {self._pointFim}, de cor {self._color}!')
 
 #Classe Auxiliar do Circle
@@ -139,8 +151,6 @@ class Circle():
         self._x = float(input("Digite o novo valor de x: "))
         self._y = float(input("Digite o novo valor de y: "))
 
-
-
 #Classe Quadrado
 class Square():
     def __init__(self, n, lado):
@@ -155,13 +165,13 @@ class Square():
         perimetro = self._lado*4
         return perimetro
     
-
 #Classe Retangulo
 class Rectangle(Square):
     def __init__(self, n, lado, altura): #neste caso, o lado será a base do retângulo
-        super().__init__(n, lado)
         self._n = n
         self._altura = altura
+
+        super().__init__(n, lado)
 
     def area(self):
         area = self._lado * self._altura
@@ -177,6 +187,7 @@ class Losango(Square):
     def __init__ (self, n, lado, diagMaior, diagMenor):
         self._diagMaior = diagMaior
         self._diagMenor = diagMenor
+        
         super().__init__(n, lado)
 
     def areaLosango(self):
@@ -192,52 +203,64 @@ class TriangleEquil():
 
     def _verificaTriEquil(self):
         aux = False
+
         if(self._x + self._y) > self._z and (self._x + self._z) > self._z and (self._y + self._z) > self._x:
             aux = True
             return aux
+        
         else:
             return aux
 
     def _verificaLados(self):
         aux = False
+        
         if self._x == self._y == self._z:
             aux = True
             return aux
+        
         else:
             return aux
 
     def alturaTriEquil(self):
         verificarTri = self._verificaTriEquil()
         verificarLado = self._verificaLados()
+        
         if verificarTri == True and verificarLado == True:
             if self._x == self._y:
                 altura = ((self._z/2)**2 +  self._x**2)**0.5
                 return altura
+            
             elif self._x == self._z:
                 altura = ((self._y/2)**2 +  self._x**2)**0.5
                 return altura
+            
             elif self._y == self._z:
                 altura = ((self._x/2)**2 +  self._y**2)**0.5
                 return altura
+            
         else:
             return "As entradas não são válidas!"
 
     def areaTriEquil(self):
         verificarTri = self._verificaTriEquil()
         verificarLado = self._verificaLados()
+
         if verificarTri == True and verificarLado:
             if self._x == self._y and self._y == self._z:
                 area = ((self._x**2)*(3**0.5))/4
                 return area
+            
         else:
             return "As entradas não são válidas!"
 
     def perimetroTriEquil(self):
         verificarTri= self._verificaTriEquil()
         verificarLados = self._verificaLados()
+
         if verificarTri == True and verificarLados == True:
-            perimetro = self._x+self._y+self._z
+            perimetro = self._x + self._y + self._z
             return perimetro
+        
         else:
             return "As entradas não são válidas!"
 
@@ -251,10 +274,13 @@ class TriangleIsos(TriangleEquil):
     def _verificaLados(self):
         if self._x == self._y and self._z != self._x:
             return True
+        
         if self._x == self._z and self._y != self._x:
             return True
+        
         if self._z == self._y and self._z != self._x:
             return True
+        
         else: 
             return False
         
@@ -266,12 +292,15 @@ class TriangleIsos(TriangleEquil):
             if self._x == self._y:
                 altura = (self._x**2 - (self._z**2)/4)**0.5
                 return altura
+            
             elif self._x == self._z:
                 altura = (self._x**2 - (self._y**2)/4)**0.5
                 return altura
+            
             elif self._y == self._z:
                 altura = (self._y**2 - (self._x**2)/4)**0.5
                 return altura
+        
         else:
             return "As entradas não são válidas!"
 
@@ -282,21 +311,27 @@ class TriangleIsos(TriangleEquil):
         if verificarTri == True and verificarLados == True:
             if self._x == self._y:
                 return self._z
+            
             elif self._x == self._z:
                 return self._y
+            
             elif self._y == self._z:
                 return self._x
+        
         else:
             return "As entradas não são válidas!"
 
     def areaTriIsos(self):
         verificarTri = self._verificaTriEquil()
         verificarLados = self._verificaLados()
+        
         if verificarTri == True and verificarLados == True:
             altura = self._alturaTriIsos()
             base =  self._baseTriIsos()
             area = (base*altura)/2
+        
             return area
+        
         else:
             return "As entradas não são válidas!"
         
@@ -339,6 +374,7 @@ class TriangleEscaleno():
         menorTeta = self._menorAngulo()
         maiorTeta = self._maiorAngulo()
         TetaMeio = 180 - menorTeta - maiorTeta
+        
         print(f"{maiorTeta}, {menorTeta}, {TetaMeio}")
 
     def alturaTriEsc(self): 
@@ -411,7 +447,6 @@ class Hexagon(Polygon):
 
     def areaHexagon(self):
         area = ((3*self._n**2)*3**0.5)/2
-
         return area
     
 #Classe Trapézio Isosceles
@@ -423,7 +458,6 @@ class TrapezioIsosceles():
 
     def areaTrapIsos(self):
         area = ((self._baseMenor + self._baseMaior)*self._altura)/2
-    
         return area
     
     def ladoTrapIsos(self):
