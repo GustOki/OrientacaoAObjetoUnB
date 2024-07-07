@@ -1,7 +1,7 @@
 from package.maths.terms import Circle
 
 def workspace():
-    circulo_1 = Circle(3, 7, 5)
+    circulo_1 = Circle(1, 3, 7, 5)
     circulo_1.model()
 
 if __name__ == "__main__":

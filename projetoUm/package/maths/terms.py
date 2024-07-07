@@ -1,5 +1,5 @@
 import math
-
+from abc import ABC, abstractmethod
 
 #Classe Ponto
 class Point():
@@ -35,7 +35,7 @@ class Point():
 
 
 #Classe Reta
-class Line(Point):
+class Line():
 
     def __init__(self, pointOrigem, pointFim, color):
 
@@ -61,11 +61,42 @@ class Line(Point):
 
 #Classe Circulo
 class Circle(Point):
-    def __init__(self, x, y, raio):
-        super().__init__(x, y)
+    def __init__(self, n, x, y, raio):
+        super().__init__(n ,x, y)
         self._raio = raio
         self._diametro = (self._raio)*2
 
     def model(self):
-        print(f'Eu sou um círculo e minhas coordenadas são: x = {self._x} e y = {self._y}. O meu raio é {self._raio} e meu diâmetro é {self._diametro}')
+        print(f'As coordenadas do círculo {self._n} são: x = {self._x} e y = {self._y}. O seu raio é {self._raio} e seu diâmetro é {self._diametro}')
+
+
+#Classe Quadrado
+class Square():
+    def __init__(self, n, lado):
+        self._n = n
+        self._lado = lado
+
+    def area(self):
+        area = self._lado**2
+        return area
+    
+    def perimetro(self):
+        perimetro = self._lado*4
+        return perimetro
+    
+
+#Classe Retangulo
+class Rectangle(Square):
+    def __init__(self, n, lado, altura): #neste caso, o lado será a base do retângulo
+        super().__init__(n, lado)
+        self._n = n
+        self._altura = altura
+
+    def area(self):
+        area = self._lado * self._altura
+        return area
+    
+    def perimetro(self):
+        perimetro = 2*(self._lado + self._altura)
+        return perimetro
 
