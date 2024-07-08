@@ -1,20 +1,20 @@
 from package.maths.terms import Line
 
 def workspace():
-    n = int(input("Digite o número de pontos na reta: "))
+    n = int(input("digite a qtd de pontos na reta: "))
 
-    lineObj = Line(n)
-    m = lineObj.inclinacao()
-    b = lineObj.CoefLinear(lineObj.inclinacao())
+    obj_Reta = Line(n) 
+    m = obj_Reta.inclinacaoLine() #
+    b = obj_Reta.coefLinear(obj_Reta.inclinacaoLine()) #associação.
 
-    print(f"O valor de m será: {m}")
-    print(f"O valor de b será: {b}")
+    print(f"m: {m}")
+    print(f"b: {b}")
 
-    i = int(input("Quantidade de iterações: "))
-    lineObj.montarTabela(m, b, i)
-
-    y = lineObj.interpolar(m, b, i)
-    print(y)
+    i = int(input("quantidade de iterações:"))
+    obj_Reta.montarTabela(m,b,i)
+    
+    y = obj_Reta.interpolar(obj_Reta.inclinacaoLine(),b,i) #associação, pois usa a inclinação, mas não chega a possui-la
+    print(f'interpolar, y = {y}')
 
 
 if __name__ == "__main__":

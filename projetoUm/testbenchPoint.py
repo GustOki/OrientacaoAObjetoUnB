@@ -1,22 +1,20 @@
 from package.maths.terms import Point
 
 def workspace():
-    qtd = int(input(f"Digite a quantidade de pontos: "))
-    pointObj = Point(qtd)
+    numPoints = int(input("Digite o número de pontos: "))
+    pointObj = Point(numPoints)
 
-    color = pointObj.color()
-    coord = pointObj.coordenada()
-    print(f"Cores: {color}\n")
-    print(f"Coordenadas: {coord}\n")
+    color = pointObj.colorPoint()
+    coord = pointObj.coordPoint()
+    print(f"\nCores: {color}")
+    print(f"Coordenadas: {coord}\n") 
 
-    pointObj.setPointX(coord)
-    pointObj.setPointY(coord)
+    vetorPointX = pointObj.returnPointX(coord)
+    vetorPointY = pointObj.returnPointY(coord)
+    print(f"{vetorPointX}")
+    print(f"{(vetorPointY)}\n")
 
-    x = pointObj.returnPointX(coord)
-    y = pointObj.returnPointY(coord)
-    print(f'{x}')
-    print(f'{y}')
-    print(f"Novas coordenadas: {coord}")
+    pointObj.showPoint(coord, color)
 
 if __name__ == "__main__":
 

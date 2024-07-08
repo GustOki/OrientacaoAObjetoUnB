@@ -1,121 +1,96 @@
 import math
 from abc import ABC, abstractmethod
 
-#Classe Ponto ARRUMAR DISTANCIA!!!!
+#Classe Ponto
 class Point():
     def __init__(self, n):
         self._n = n
+
+    def colorPoint(self):
+        vetorColorPoint = []
+        for i in range(0, self._n):
+            color = str(input(f"Digite a cor do seu ponto {i}: "))
+            vetorColorPoint.append(color)
         
-    def color(self):
-        colorPoint = []
+        return vetorColorPoint
+
+    def coordPoint(self):
+        vetorCoordPoint = []
         for i in range(0, self._n):
-            color = str(input(f"Digite a cor do ponto nº{i}: "))
-            colorPoint.append(color)
+            x = int(input(f"Digite a coordenada de x({i}): "))
+            y = int(input(f"Digite a coordenada de y({i}): "))
 
-        return colorPoint
+            vetor = []
+            vetor.append(x)
+            vetor.append(y)
+            vetorCoordPoint.append(vetor)
 
-    def coordenada(self):
-        coordPoint = []
+        return vetorCoordPoint
 
-        for i in range(0, self._n):
-            x = int(input(f"Digite a coordenada X do ponto nº{i}: "))
-            y = int(input(f"Digite a coordenada Y do ponto nº{i}: "))
-
-            vetorCoord = []
-            vetorCoord.append(x)
-            vetorCoord.append(y)
-            coordPoint.append(vetorCoord)
-
-        return coordPoint
-    
     def returnPointX(self, point):
         self._point = point
-        vetorX = {}
-
+        vetorPointX = {}
         for i in range(0, self._n):
-            vetorX[f'x{i}'] = self._point[i][0]
+            vetorPointX[f'x({i})'] = self._point[i][0]
+        
+        return vetorPointX
 
-        return vetorX
-    
-    def returnPointY(self, point):
+    def returnPointY(self, point): 
         self._point = point
-        vetorY = {}
-
+        vetorPointY = {}
         for i in range(0, self._n):
-            vetorY[f'y{i}'] = self._point[i][1]
+            vetorPointY[f'y({i})'] = self._point[i][1]
         
-        return (vetorY)
-    
-    def setPointX(self, point):
-        self._point = point
-        
-        for i in range(0, self._n):
-            numX = int(input(f'Digite o novo valor do ponto x nº{i}: '))
-            point[i].pop(0)
-            point[i].insert(0, numX)
+        return(vetorPointY)
 
-    def setPointY(self, point):
-        self._point = point
-        
-        for i in range(0, self._n):
-            numY = int(input(f'Digite o novo valor do ponto y nº{i}: '))
-            point[i].pop(0)
-            point[i].insert(0, numY)
-
-    def distance(self):
-        distance = math.sqrt(self._x**2 + self._y**2)
-        return distance
-    
-    def returnPoint(self, point, color):
-        infoPoint = int(input(f"Dado os pontos: {point}\n. Digite qual index queira acessar para obter informações do ponto: "))
-        
-        print(f"Informação: {point[infoPoint]}\ncor: {color[infoPoint]}")
-
+    def showPoint(self, point, color):
+            num = int(input(f"Dados os pontos: {point}. Digite a index que você quer consultar as informações de ponto: ")) 
+            print(f"Ponto solicitado: coordenada{point[num]} e de cor {color[num]}!")
+ 
 
 #Classe Reta ARRUMAR AQUI DEPOIS
 class Line():
-
-    def __init__(self, n):
+    def __init__(self,n):
         self._n = n
-        self._pointObj = Point(n) 
-        self._coord = self._pointObj.coordenada()
+        self._pointObj = Point(n)
+        self._coord = self._pointObj.coordPoint()
 
-    def inclinacao(self):
+    def inclinacaoLine(self):
         if len(self._coord) >= 2:
-            deltaX = self._coord[1][0]-self._coord[0][0]
-            deltaY = self._coord[1][1]-self._coord[0][1]
+            deltaX = self._coord[1][0] - self._coord[0][0]
+            deltaY = self._coord[1][1] - self._coord[0][1]
             
             if deltaX > 0:
-                inclinacao = deltaY/deltaX
+                inclinacao = deltaY / deltaX
                 return inclinacao
+            
             else:
-                return "o seu delta X = 0, tente outro caso!"
-        
+                return 'O seu deltaX é = 0, tente outro caso!'
+            
         elif len(self._coord) == 1:
-            inclinacao = self._coord[0][1]/self._coord[0][0]
+            inclinacao = self._coord[0][1] / self._coord[0][0]
             return inclinacao
 
-    def CoefLinear(self, m): #m = coefc. angular vindo da inclinação
+    def coefLinear(self, m): #m = coeficiente angular
         self._m = m
-        
         if type(self._m) == float:
-            b = self._coord[0][1] - self._coord[0][0]* self._m
-            return b
+            coefLinear = self._coord[0][1] - self._coord[0][0] * self._m
+            return coefLinear
         else:
-            return "O seu delta X = 0, tente outro caso!"
-
-    def montarTabela(self, m, b, i):
-        print(f"__TABELA__\n  X | Y  ")
-        
-        for x in range(0,i):
-            y = m*x + b
-            print(f"  {x} | {y}  ")
+            return "O seu deltaX é = 0, tente outro caso!"
     
-    def interpolar(self, m, b, x):
-        y = m*x+b
+
+    def montarTabela(self, m, coefLinear, i): #assosiação    self-association
+        print(f"__TABELA__\n  X | Y  ")
+        for x in range(0, i):
+            y = m * x + coefLinear
+            print(f"  {x} | {y}  ")
+
+    def interpolar(self, m, coefLinear, x): #associação   self-association
+        y = m * x + coefLinear
         return y
 
-#Classe Auxiliar do Circle
+#Classe de coordenada única
 class coordCircle: 
     def __init__(self, x, y):
         self._x = x
