@@ -1,10 +1,13 @@
 from package.maths.terms import Circle, coordCircle
 
 def workspace():
-    coord = coordCircle()
-    raio = float(input("Digite o raio: "))
+    x = int(input("Digite o valor de x: "))
+    y = int(input("Digite o valor de y: "))
+    coord = coordCircle(x, y)
+    
+    raio = int(input("Digite o raio: "))
+    circleObj = Circle(coord.coordenadaX(), coord.coordenadaY(), raio)
 
-    circleObj = Circle(coord.coordenadaX(),coord.coordenadaY(), raio)
     circunf = circleObj.circunferenciaCircle()
     print(f"Circunferencia: {circunf}")
     
