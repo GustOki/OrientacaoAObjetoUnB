@@ -117,9 +117,9 @@ class Line():
 
 #Classe Auxiliar do Circle
 class coordCircle: 
-    def __init__(self):
-        self._x = input("Digite a coordenada x: ")
-        self._y = input("Digite a coordenada y: ")
+    def __init__(self, x, y):
+        self._x = x
+        self._y = y
 
     def coordenadaX(self):
         return self._x
@@ -135,7 +135,7 @@ class Circle():
         self._raio = raio
 
     def circunferenciaCircle(self):
-        circunf = 2*3.1415926535*self._raio
+        circunf = 2*3.14*self._raio
         return circunf
 
     def diametroCircle(self):
@@ -143,16 +143,12 @@ class Circle():
         return diametro
 
     def areaCircle(self):
-        area = 3.1415926535*(self._raio**2)
+        area = 3.14*(self._raio**2)
         return area
 
     def perimetroCircle(self, teta, circunf):
-        perimetro = (teta/(2*3.1415926535))*circunf
+        perimetro = (teta/(2*3.14))*circunf
         return perimetro
-
-    def set(self):
-        self._x = float(input("Digite o novo valor de x: "))
-        self._y = float(input("Digite o novo valor de y: "))
 
 #Classe Quadrado
 class Square():
