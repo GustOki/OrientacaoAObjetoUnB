@@ -1,18 +1,11 @@
 from package.maths.terms import TriangleEquil
 
 def workspace():
-    x = int(input("Digite o valor do lado x: "))
-    y = float(input("Digite o valor do lado y: "))
-    z = float(input("Digite o valor do lado z: "))
+    lado = int(input("Digite o lado do triângulo equilátero: "))
+    
+    triEquilObj = TriangleEquil(lado)
 
-    triEquilObj = TriangleEquil(x, y, z)
-    area = triEquilObj.areaTriEquil()
-    altura = triEquilObj.alturaTriEquil()
-    perimetro = triEquilObj.perimetroTriEquil()
-
-    print(f'Area: {area}')
-    print(f'Altura: {altura}')
-    print(f'Perimetro: {perimetro}')
+    triEquilObj.showTriEquil()
 
 if __name__ == "__main__":
 

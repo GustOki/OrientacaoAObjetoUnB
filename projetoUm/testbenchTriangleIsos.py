@@ -1,19 +1,11 @@
 from package.maths.terms import TriangleIsos
 
 def workspace():
-    x = int(input("Digite o valor do lado x: "))
-    y = int(input("Digite o valor do lado y: "))
-    z = int(input("Digite o valor do lado z: "))
+    ladosIguais = int(input("Digite os lados iguais do triângulo isósceles: "))
+    base = int(input("Digite a base do triângulo isósceles: "))
+    triIsosObj = TriangleIsos(ladosIguais, base)
 
-    triIsosObj = TriangleIsos(x, y, z)
-    
-    area = triIsosObj.areaTriIsos()
-    altura = triIsosObj._alturaTriIsos()
-    perimetro = triIsosObj.perimetroTriEquil()
-
-    print(f'Area: {area}')
-    print(f'Altura: {altura}')
-    print(f'Perimetro: {perimetro}')
+    triIsosObj.showTriIsos()
 
 if __name__ == "__main__":
 

@@ -4,11 +4,7 @@ def workspace():
     lado = int(input("Digite o lado do hexagono: "))
     hexagonObj = Hexagon(lado)
 
-    area = hexagonObj.areaHexagon()
-    perimetro = hexagonObj.perimetroPolygon()
-
-    print(f"Area: {area}")
-    print(f"Perimetro: {perimetro}")
+    hexagonObj.showHexagon()
 
 if __name__ == "__main__":
 

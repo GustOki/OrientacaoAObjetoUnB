@@ -1,20 +1,13 @@
 from package.maths.terms import TriangleEscaleno
 
 def workspace():
-    x = int(input("Digite o valor do lado x: "))
-    y = int(input("Digite o valor do lado y: "))
-    z = int(input("Digite o valor do lado z: "))
+    x = int(input("Digite o valor do lado x do triângulo escaleno: "))
+    y = int(input("Digite o valor do lado y do triângulo escaleno: "))
+    z = int(input("Digite o valor do lado z do triângulo escaleno: "))
 
     triEscObj = TriangleEscaleno(x, y, z)
-    
-    triEscObj.angulosInternos()
-    area = triEscObj.areaTriEsc()
-    altura = triEscObj.alturaTriEsc()
-    perimetro = triEscObj.perimetroTriEsc()
 
-    print(f'Area: {area}')
-    print(f'Altura: {altura}')
-    print(f'Perimetro: {perimetro}')
+    triEscObj.showTriEsc()
 
 if __name__ == "__main__":
 

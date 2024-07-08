@@ -6,13 +6,8 @@ def workspace():
     altura = int(input("Digite a altura do trapézio retângulo: "))
 
     trapRetObj = TrapezioRetangulo(baseMenor, baseMaior, altura)
-    areaTrapRet = trapRetObj.areaTrapIsos()
-    perimetroTrapRet = trapRetObj.perimetroTrapRet()
-    getAlturaTrapRet = trapRetObj.getAltura()
 
-    print(f"Área: {areaTrapRet}")
-    print(f"Perímetro: {perimetroTrapRet}")
-    print(f"Altura: {getAlturaTrapRet}")
+    trapRetObj.showTrapIsos()
 
 if __name__ == "__main__":
 

@@ -4,11 +4,7 @@ def workspace():
     lado = int(input("Digite o lado do pentagono: "))
     pentagonObj = Pentagon(lado)
     
-    area = pentagonObj.areaPentagon()
-    perimetro = pentagonObj.perimetroPolygon()
-    
-    print(f'Area {area}')
-    print(f'Perimetro: {perimetro}')
+    pentagonObj.showPentagon()
 
 if __name__ == "__main__":
 
