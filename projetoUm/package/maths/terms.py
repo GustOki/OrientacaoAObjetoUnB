@@ -491,7 +491,7 @@ class Hexagon(Polygon):
     def showHexagon(self):
         print(f"O seu hexágono foi criado com lados de comprimento {self._lado}, com área de {self.areaPolygon()} e perímetro de {self.perimetroPolygon()}!")
     
-#Classe Trapézio Isosceles VERIFICAR ERRO!!!
+#Classe Trapézio Isosceles
 class TrapezioIsosceles:
     def __init__(self, baseMenor, baseMaior, altura):
         self._baseMenor = self._validaBase(baseMenor)
@@ -538,7 +538,7 @@ class TrapezioIsosceles:
         
         print(f"O seu trapézio isósceles foi criado com com uma altura de {altura}, com {area} de área e {perimetro} de perímetro!")
 
-#Classe Trapézio Retângulo VERIFICAR ERRO!!!
+#Classe Trapézio Retângulo
 class TrapezioRetangulo(TrapezioIsosceles): 
     def __init__(self, baseMenor, baseMaior, altura):
         super().__init__(baseMenor, baseMaior, altura)
