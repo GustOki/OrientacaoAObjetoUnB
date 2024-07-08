@@ -3,11 +3,11 @@ import math
 #Classe Ponto
 class Point():
     def __init__(self, n):
-        self._n = n
+        self.n = n
 
     def colorPoint(self):
         vetorColorPoint = []
-        for i in range(0, self._n):
+        for i in range(0, self.n):
             color = str(input(f"Digite a cor do seu ponto {i}: "))
             vetorColorPoint.append(color)
         
@@ -15,7 +15,7 @@ class Point():
 
     def coordPoint(self):
         vetorCoordPoint = []
-        for i in range(0, self._n):
+        for i in range(0, self.n):
             x = int(input(f"Digite a coordenada de x({i}): "))
             y = int(input(f"Digite a coordenada de y({i}): "))
 
@@ -27,18 +27,18 @@ class Point():
         return vetorCoordPoint
 
     def returnPointX(self, point):
-        self._point = point
+        self.point = point
         vetorPointX = {}
-        for i in range(0, self._n):
-            vetorPointX[f'x({i})'] = self._point[i][0]
+        for i in range(0, self.n):
+            vetorPointX[f'x({i})'] = self.point[i][0]
         
         return vetorPointX
 
     def returnPointY(self, point): 
-        self._point = point
+        self.point = point
         vetorPointY = {}
-        for i in range(0, self._n):
-            vetorPointY[f'y({i})'] = self._point[i][1]
+        for i in range(0, self.n):
+            vetorPointY[f'y({i})'] = self.point[i][1]
         
         return vetorPointY
     
@@ -48,19 +48,22 @@ class Point():
     def showPoint(self, point, color):
             num = int(input(f"Pontos criados: {point}. Digite a index que você quer consultar as informações de ponto: ")) 
             print(f"Ponto solicitado: coordenada{point[num]} e de cor {color[num]}!")
+
+    def identif(self):
+        return '_ponto'
  
 
 #Classe Reta
 class Line():
     def __init__(self, n):
-        self._n = n
-        self._pointObj = Point(n)
-        self._coord = self._pointObj.getCoordPoint()
+        self.n = n
+        self.pointObj = Point(n)
+        self.coord = self.pointObj.getCoordPoint()
 
     def lenghtLine(self): 
-        if len(self._coord) >= 2:
-            deltaX = self._coord[1][0] - self._coord[0][0]
-            deltaY = self._coord[1][1] - self._coord[0][1]
+        if len(self.coord) >= 2:
+            deltaX = self.coord[1][0] - self.coord[0][0]
+            deltaY = self.coord[1][1] - self.coord[0][1]
             tamanho = math.sqrt(deltaX**2 + deltaY**2)
             
             return tamanho
@@ -73,9 +76,9 @@ class Line():
         return color
 
     def inclinacaoLine(self):
-        if len(self._coord) >= 2:
-            deltaX = self._coord[1][0] - self._coord[0][0]
-            deltaY = self._coord[1][1] - self._coord[0][1]
+        if len(self.coord) >= 2:
+            deltaX = self.coord[1][0] - self.coord[0][0]
+            deltaY = self.coord[1][1] - self.coord[0][1]
             
             if deltaX > 0:
                 inclinacao = deltaY / deltaX
@@ -84,14 +87,14 @@ class Line():
             else:
                 return 'O seu deltaX é = 0, tente outro caso!'
             
-        elif len(self._coord) == 1:
-            inclinacao = self._coord[0][1] / self._coord[0][0]
+        elif len(self.coord) == 1:
+            inclinacao = self.coord[0][1] / self.coord[0][0]
             return inclinacao
 
     def coefLinear(self, coefAng):
-        self._coefAng = coefAng
-        if type(self._coefAng) == float:
-            coefLinear = self._coord[0][1] - self._coord[0][0] * self._coefAng
+        self.coefAng = coefAng
+        if type(self.coefAng) == float:
+            coefLinear = self.coord[0][1] - self.coord[0][0] * self.coefAng
             return coefLinear
         else:
             return "O seu deltaX é = 0, tente outro caso!"
@@ -109,39 +112,45 @@ class Line():
         
         print(f"A sua reta foi criada com {lenght} de tamanho e de cor {color}, com um coeficiente angular de {coefAng}, um coeficiente linear de {coefLinear} e uma interpolação de y = {interpolacao}!")
 
+    def identif(self):
+        return '_reta'
+
 #Classe de coordenada única
-class coordCircle: 
+class coordUnique: 
     def __init__(self, x, y):
-        self._x = x
-        self._y = y
+        self.__x = x
+        self.__y = y
 
     def coordenadaX(self):
-        return self._x
+        return self.__x
     
     def coordenadaY(self):
-        return self._y
+        return self.__y
+    
+    def identif(self):
+        return '_coordenadaCirculo'
 
 #Classe Circulo
 class Circle():
     def __init__(self, x, y, raio):
-        self._x = x
-        self._y = y
-        self._raio = raio
+        self.x = x
+        self.y = y
+        self.raio = raio
 
     def colorCircle(self):
         color = str(input(f"Digite a cor do círculo: "))
         return color
 
     def circunferenciaCircle(self):
-        circunf = 2 * math.pi * self._raio
+        circunf = 2 * math.pi * self.raio
         return circunf
 
     def diametroCircle(self):
-        diametro = 2 * self._raio
+        diametro = 2 * self.raio
         return diametro
 
     def areaCircle(self):
-        area = math.pi * (self._raio ** 2)
+        area = math.pi * (self.raio ** 2)
         return area
     
     def showCircle(self, color, circunf, diametro, area):
@@ -151,10 +160,13 @@ class Circle():
         
         print(f"O seu círculo foi criado com {circunf} de circunferência e de cor {color}, com um diâmetro de {diametro} e uma área de {area}!")
 
+    def identif(self):
+        return '_circulo'
+
 #Classe Quadrado
 class Square():
-    def __init__(self, lado):
-        self._lado = self._validaLado(lado)
+    def __init__(self, __lado):
+        self.__lado = self._validaLado(__lado)
 
     def colorSquare(self):
         color = str(input(f"Digite a cor do quadrado: "))
@@ -166,11 +178,11 @@ class Square():
         return lado
 
     def areaSquare(self):
-        area = self._lado**2
+        area = self.__lado**2
         return area
     
     def perimetroSquare(self):
-        perimetro = self._lado*4
+        perimetro = self.__lado*4
         return perimetro
     
     def showSquare(self, lado, color, area, perimetro):
@@ -179,12 +191,15 @@ class Square():
         
         print(f'O seu quadrado foi criado com cor {color} e com os lados de comprimento {lado}, com área de {area} e perímetro de {perimetro}!')
     
+    def identif(self):
+        return '_quadrado'
+    
 #Classe Retangulo
 class Rectangle():
     def __init__(self, rectBase, rectAlt):
-        self._rectBase = self._validaLado(rectBase)
-        self._rectAlt = self._validaLado(rectAlt)
-        self._color = self.colorRectangle()
+        self.rectBase = self._validaLado(rectBase)
+        self.rectAlt = self._validaLado(rectAlt)
+        self.color = self.colorRectangle()
 
     def colorRectangle(self):
         color = input("Digite a cor do retângulo: ")
@@ -196,31 +211,34 @@ class Rectangle():
         return lado
 
     def areaRectangle(self):
-        return self._rectBase * self._rectAlt
+        return self.rectBase * self.rectAlt
 
     def perimetroRectangle(self):
-        return 2 * (self._rectBase + self._rectAlt)
+        return 2 * (self.rectBase + self.rectAlt)
 
     def showRectangle(self, area, perimetro):
         area = self.areaRectangle()
         perimetro = self.perimetroRectangle()
-        print(f'O seu retângulo foi criado com cor {self._color} e com base de comprimento {self._rectBase} e altura de {self._rectAlt}, com área de {area} e perímetro de {perimetro}!')
+        print(f'O seu retângulo foi criado com cor {self.color} e com base de comprimento {self.rectBase} e altura de {self.rectAlt}, com área de {area} e perímetro de {perimetro}!')
+
+    def identif(self):
+        return '_retangulo'
     
 
 #Classe Losango
 class Losango(Square):
-    def __init__ (self, lado, diagMaior, diagMenor):
-        super().__init__(lado)
-        self._diagMaior = diagMaior
-        self._diagMenor = self._validaDiag(diagMenor)
-        self._color = self.colorLosango()
+    def __init__ (self, __lado, diagMaior, diagMenor):
+        super().__init__(__lado)
+        self.diagMaior = diagMaior
+        self.diagMenor = self._validaDiag(diagMenor)
+        self.color = self.colorLosango()
 
     def colorLosango(self):
         color = input("Digite a cor do losango: ")
         return color
 
     def areaLosango(self):
-        area = (self._diagMaior * self._diagMenor) / 2
+        area = (self.diagMaior * self.diagMenor) / 2
         return area
     
     def _validaDiag(self, diag):
@@ -230,43 +248,46 @@ class Losango(Square):
     
     def showLosango(self):
         area = self.areaLosango()
-        print(f'O seu losango foi criado com cor {self._color} com área de {area}!')
+        print(f'O seu losango foi criado com cor {self.color} com área de {area}!')
+
+    def identif(self):
+        return '_losango'
     
 #Classe Triângulo Equilatero
 class TriangleEquil():
     def __init__(self, lado):
         if lado <= 0:
             raise ValueError("O lado deve ser maior que zero.")
-        self._lado = lado
-        self._color = self.colorTriEquil()
+        self.lado = lado
+        self.color = self.colorTriEquil()
 
     def colorTriEquil(self):
         color = input("Digite a cor do triângulo equilátero: ")
         return color
     
     def triEquilEhValido(self):
-        return self._lado > 0
+        return self.lado > 0
     
     def ehEquil(self):
         return True
 
     def alturaTriEquil(self):
         if self.triEquilEhValido() and self.ehEquil():
-            altura = (self._lado * (3 ** 0.5)) / 2
+            altura = (self.lado * (3 ** 0.5)) / 2
             return altura
         else:
             return "As entradas não são válidas!"
 
     def areaTriEquil(self):
         if self.triEquilEhValido() and self.ehEquil():
-            area = ((self._lado ** 2) * (3 ** 0.5)) / 4
+            area = ((self.lado ** 2) * (3 ** 0.5)) / 4
             return area
         else:
             return "As entradas não são válidas!"
 
     def perimetroTriEquil(self):
         if self.triEquilEhValido() and self.ehEquil():
-            perimetro = self._lado * 3
+            perimetro = self.lado * 3
             return perimetro
         else:
             return "As entradas não são válidas!"
@@ -278,31 +299,34 @@ class TriangleEquil():
         
         print(f"O seu triângulo equilátero foi criado com cor {self._color}, com uma altura de {altura}, com {area} de área e {perimetro} de perímetro!")
 
+    def identif(self):
+        return '_trianguloEquilatero'
+
 class TriangleIsos(TriangleEquil):
     def __init__(self, ladoIgual, base):
         super().__init__(ladoIgual)
-        self._base = self._validaBase(base)
-        self._color = self.colorTriIsos()
+        self.base = self._validaBase(base)
+        self.color = self.colorTriIsos()
 
     def colorTriIsos(self):
         color = input("Digite a cor do triângulo isósceles: ")
         return color
 
     def _validaBase(self, base):
-        if base <= 0 or base >= 2 * self._lado:
+        if base <= 0 or base >= 2 * self.lado:
             raise ValueError("A base do triângulo isósceles deve ser maior que zero e menor que dois vezes o lado igual.")
         return base
 
     def alturaTriIsos(self):
-        altura = (self._lado ** 2 - (self._base ** 2 / 4)) ** 0.5
+        altura = (self.lado ** 2 - (self.base ** 2 / 4)) ** 0.5
         return altura
 
     def areaTriIsos(self):
-        area = (self._base * self.alturaTriIsos()) / 2
+        area = (self.base * self.alturaTriIsos()) / 2
         return area
     
     def perimetroTriIsos(self):
-        perimetro = self._lado * 2 + self._base
+        perimetro = self.lado * 2 + self.base
         return perimetro
     
     def showTriIsos(self):
@@ -310,16 +334,17 @@ class TriangleIsos(TriangleEquil):
         area = self.areaTriIsos()
         perimetro = self.perimetroTriIsos()
         
-        print(f"O seu triângulo isósceles foi criado com cor {self._color}, com uma altura de {altura}, com {area} de área e {perimetro} de perímetro!")
+        print(f"O seu triângulo isósceles foi criado com cor {self.color}, com uma altura de {altura}, com {area} de área e {perimetro} de perímetro!")
 
-
+    def identif(self):
+        return '_trianguloIsosceles'
         
 #Classe Triangulo Escaleno
 class TriangleEscaleno():
     def __init__(self, x, y, z):
-        self._x = self._verificaLado(x)
-        self._y = self._verificaLado(y)
-        self._z = self._verificaLado(z)
+        self.x = self._verificaLado(x)
+        self.y = self._verificaLado(y)
+        self.z = self._verificaLado(z)
         self._color = self.colorTriEsc()
         
         if not self._verificaDiferenca():
@@ -337,8 +362,8 @@ class TriangleEscaleno():
     def _verificaDiferenca(self):
         aux = False
 
-        if self._x + self._y > self._z and self._y + self._z > self._x and self._z + self._x > self._y:
-            if self._x != self._y and self._y != self._z and self._x != self._z:
+        if self.x + self.y > self.z and self.y + self.z > self.x and self.z + self.x > self.y:
+            if self.x != self.y and self.y != self.z and self.x != self.z:
                 aux = True
                 return aux
             
@@ -349,15 +374,15 @@ class TriangleEscaleno():
             return aux
         
     def _menorAngulo(self):
-        m = min(self._x, self._y, self._z)
-        aux = 180 / (self._x + self._y + self._z)
+        m = min(self.x, self.y, self.z)
+        aux = 180 / (self.x + self.y + self.z)
         menorTeta = aux * m
 
         return menorTeta
         
     def _maiorAngulo(self):
-        m = max(self._x, self._y, self._z)
-        aux = 180 / (self._x + self._y + self._z)
+        m = max(self.x, self.y, self.z)
+        aux = 180 / (self.x + self.y + self.z)
         maiorTeta = aux * m
 
         return maiorTeta
@@ -375,7 +400,7 @@ class TriangleEscaleno():
         if verificador:
             a = self._menorAngulo()
             aux = math.sin(a)
-            altura = self._z * aux
+            altura = self.z * aux
 
             return altura
         
@@ -387,7 +412,7 @@ class TriangleEscaleno():
 
         if verificador:
             altura =  self.alturaTriEsc()
-            area = (self._z * altura) / 2
+            area = (self.z * altura) / 2
 
             return area
         
@@ -398,7 +423,7 @@ class TriangleEscaleno():
         verificador = self._verificaDiferenca()
 
         if verificador:
-            perimetro = self._x + self._y + self._z
+            perimetro = self.x + self.y + self.z
 
             return perimetro
         
@@ -412,13 +437,16 @@ class TriangleEscaleno():
         
         print(f"O seu triângulo escaleno foi criado com cor {self._color}, com uma altura de {altura}, com {area} de área e {perimetro} de perímetro!")
 
+    def identif(self):
+        return '_trianguloEscaleno'
+
 
 from abc import ABC, abstractmethod
 #Classe Poligono        
 class Polygon(ABC): 
     def __init__(self, n, tamanhoLado):
-        self._n = self._validaLado(n)
-        self._lado = self._validaTamanhoLado(tamanhoLado)
+        self.n = self._validaLado(n)
+        self.lado = self._validaTamanhoLado(tamanhoLado)
 
     @abstractmethod
     def _validaLado(n):
@@ -436,9 +464,12 @@ class Polygon(ABC):
         pass
 
     def perimetroPolygon(self):
-        perimetro = self._n * self._lado
+        perimetro = self.n * self.lado
 
         return perimetro
+    
+    def identif(self):
+        return '_poligono'
 
 #Classe Pentagono 
 class Pentagon(Polygon):
@@ -456,13 +487,15 @@ class Pentagon(Polygon):
         return tamanhoLado
 
     def areaPolygon(self):
-        apotema = self._lado / (2 * math.tan(math.pi / 5))
+        apotema = self.lado / (2 * math.tan(math.pi / 5))
         area = (self.perimetroPolygon() * apotema) / 2
         return area
 
     def showPentagon(self):
-        print(f"O seu pentágono foi criado com lados de comprimento {self._lado}, com área de {self.areaPolygon()} e perímetro de {self.perimetroPolygon()}!")
+        print(f"O seu pentágono foi criado com lados de comprimento {self.lado}, com área de {self.areaPolygon()} e perímetro de {self.perimetroPolygon()}!")
 
+    def identif(self):
+        return '_pentagono'
 
 #Classe Hexagono
 class Hexagon(Polygon):
@@ -480,21 +513,24 @@ class Hexagon(Polygon):
         return tamanhoLado
 
     def areaPolygon(self):
-        area = (3 * math.sqrt(3) * self._lado ** 2) / 2
+        area = (3 * math.sqrt(3) * self.lado ** 2) / 2
         return area
     
     def perimetroPolygon(self):
-        perimetro = 6 * self._lado
+        perimetro = 6 * self.lado
         return perimetro
     
     def showHexagon(self):
-        print(f"O seu hexágono foi criado com lados de comprimento {self._lado}, com área de {self.areaPolygon()} e perímetro de {self.perimetroPolygon()}!")
+        print(f"O seu hexágono foi criado com lados de comprimento {self.lado}, com área de {self.areaPolygon()} e perímetro de {self.perimetroPolygon()}!")
+
+    def identif(self):
+        return '_hexagono'
     
 #Classe Trapézio Isosceles
 class TrapezioIsosceles:
     def __init__(self, baseMenor, baseMaior, altura):
-        self._baseMenor = self._validaBase(baseMenor)
-        self._baseMaior = self._validaBase(baseMaior)
+        self.baseMenor = self._validaBase(baseMenor)
+        self.baseMaior = self._validaBase(baseMaior)
         self._altura = self._validaAltura(altura)
 
     @staticmethod
@@ -511,19 +547,19 @@ class TrapezioIsosceles:
 
     @property
     def areaTrapIsos(self):
-        area = ((self._baseMenor + self._baseMaior) * self._altura) / 2
+        area = ((self.baseMenor + self.baseMaior) * self._altura) / 2
         return area
     
     @property
     def ladoTrapIsos(self):
-        aux = (self._baseMaior - self._baseMenor) / 2
+        aux = (self.baseMaior - self.baseMenor) / 2
         lado = (self._altura ** 2 + aux ** 2) ** 0.5
         return lado
     
     @property
     def perimetroTrapIsos(self):
         lado = self.ladoTrapIsos
-        perimetro = lado * 2 + self._baseMenor + self._baseMaior
+        perimetro = lado * 2 + self.baseMenor + self.baseMaior
         return perimetro
     
     @property
@@ -537,6 +573,9 @@ class TrapezioIsosceles:
         
         print(f"O seu trapézio isósceles foi criado com com uma altura de {altura}, com {area} de área e {perimetro} de perímetro!")
 
+    def identif(self):
+        return '_trapezioIsosceles'
+
 #Classe Trapézio Retângulo
 class TrapezioRetangulo(TrapezioIsosceles): 
     def __init__(self, baseMenor, baseMaior, altura):
@@ -547,14 +586,14 @@ class TrapezioRetangulo(TrapezioIsosceles):
         color = input("Digite a cor do trapézio retângulo: ")
         return color
 
-    def ladoTrapRet(self):
-        aux = self._baseMaior - self._baseMenor
+    def __ladoTrapRet(self):
+        aux = self.baseMaior - self.baseMenor
         lado = math.sqrt(aux ** 2 + self._altura ** 2)
         return lado
 
     def perimetroTrapRet(self):
-        lado = self.ladoTrapRet()
-        perimetro = self._baseMaior + self._baseMenor + lado + self._altura
+        lado = self.__ladoTrapRet()
+        perimetro = self.baseMaior + self.baseMenor + lado + self._altura
         return perimetro
 
     def showTrapRet(self):
@@ -564,4 +603,25 @@ class TrapezioRetangulo(TrapezioIsosceles):
         
         print(f"O seu trapézio retângulo foi criado com cor {self._color}, com uma altura de {altura}, com {area} de área e {perimetro} de perímetro!")
 
+    def identif(self):
+        return '_trapezioRetangulo'
 
+
+class FigsGeom: 
+    def __init__(self):
+        self.forms = {}
+        self.count = 0
+    
+    def inserirForma(self, instancia): #set
+        self.count += 1
+        self.forms[str(self.count) + instancia.identif()] = instancia
+    
+    def removerForma(self, key):
+        del self.forms[key]
+
+    def listarFormas(self): #get
+        for instancia in self.forms.keys():
+            print(instancia)
+            
+    def retornarForma(self,key):
+        return self.forms[key]
