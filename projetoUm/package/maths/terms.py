@@ -1,6 +1,5 @@
 import math
 
-
 #Classe Ponto
 class Point():
     def __init__(self, n):
