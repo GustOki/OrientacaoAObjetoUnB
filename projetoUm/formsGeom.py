@@ -30,7 +30,7 @@ def workspace():
             x = float(input("x: "))
             y = float(input("y: "))
             coord = coordUnique(x,y)
-            formas.inserirForma(coord)
+            formas.setForma(coord)
             escolha = 0
             
             print('\n[Coordenada única criada!!!] \n')
@@ -38,14 +38,14 @@ def workspace():
         elif escolha == 2:
             point = float(input("Ponto: "))
             ponto = Point(point)
-            formas.inserirForma(ponto)
+            formas.setForma(ponto)
         
             print('\n[Ponto criado!!!] \n')
         
         elif escolha == 3:
             point = float(input("Pontos: "))
             reta = Line(point)
-            formas.inserirForma(reta)
+            formas.setForma(reta)
         
             print('\n[Reta criada!!!] \n')
 
@@ -54,14 +54,14 @@ def workspace():
             pointY = float(input("Ponto Y: "))
             raio = float(input("Raio: "))
             circulo = Circle(pointX, pointY, raio)
-            formas.inserirForma(circulo)
+            formas.setForma(circulo)
         
             print('\n[Círculo criado!!!] \n')
         
         elif escolha == 5:
             lado = float(input("Lado: "))
             quadrado = Square(lado)
-            formas.inserirForma(quadrado)
+            formas.setForma(quadrado)
 
             print('\n[Quadrado criado!!!] \n')
 
@@ -69,7 +69,7 @@ def workspace():
             base = float(input("Base: "))
             altura = float(input("Altura: "))
             retangulo = Rectangle(base, altura)
-            formas.inserirForma(retangulo)
+            formas.setForma(retangulo)
             
             print('\n[Retangulo criado!!!] \n')
 
@@ -78,7 +78,7 @@ def workspace():
             diagMaior = float(input("Diagonal maior: "))
             diagMenor = float(input("Diagonal menor: "))
             losango = Losango(lado, diagMaior, diagMenor)
-            formas.inserirForma(losango)
+            formas.setForma(losango)
             
             print('\n[Losango criado!!!] \n')
 
@@ -87,7 +87,7 @@ def workspace():
             pointY = float(input("Ponto y: "))
             pointZ = float(input("Ponto z: "))
             triEscaleno = TriangleEscaleno(pointX, pointY, pointZ)
-            formas.inserirForma(triEscaleno)
+            formas.setForma(triEscaleno)
             
             print('\n[Triângulo escaleno criado!!!] \n')
 
@@ -95,14 +95,14 @@ def workspace():
             ladoIgual = float(input("Lados iguais: "))
             base = float(input("Base: "))
             triIsos = TriangleIsos(ladoIgual, base)
-            formas.inserirForma(triIsos)
+            formas.setForma(triIsos)
             
             print('\n[Triângulo isósceles criado!!!] \n')
 
         elif escolha == 10:
             lado = float(input("Lados: "))
             triEquil = TriangleEquil(lado)
-            formas.inserirForma(triEquil)
+            formas.setForma(triEquil)
             
             print('\n[Triângulo equilátero criado!!!] \n')
 
@@ -110,21 +110,21 @@ def workspace():
             lados = float(input("Lados: "))
             tamanhoLado = float(input("Tamanho dos lados: "))
             poligono = Polygon(lados, tamanhoLado)
-            formas.inserirForma(poligono)
+            formas.setForma(poligono)
             
             print('\n[Polígono criado!!!] \n')
 
         elif escolha == 12:
             tamanhoLado = float(input("Tamanho dos lados: "))
             pentagono = Pentagon(tamanhoLado)
-            formas.inserirForma(pentagono)
+            formas.setForma(pentagono)
             
             print('\n[Pentágono criado!!!] \n')
 
         elif escolha == 13:
             tamanhoLado = float(input("Tamanho dos lados: "))
             hexagono = Hexagon(tamanhoLado)
-            formas.inserirForma(hexagono)
+            formas.setForma(hexagono)
             
             print('\n[Hexágono criado!!!] \n')
 
@@ -133,7 +133,7 @@ def workspace():
             baseMaior = float(input("Base maior: "))
             altura = float(input("Altura: "))
             trapIsos = TrapezioIsosceles(baseMenor, baseMaior, altura)
-            formas.inserirForma(trapIsos)
+            formas.setForma(trapIsos)
             
             print('\n[Trapézio isósceles criado!!!] \n')
 
@@ -142,18 +142,20 @@ def workspace():
             baseMaior = float(input("Base maior: "))
             altura = float(input("Altura: "))
             trapRet = TrapezioRetangulo(baseMenor, baseMaior, altura)
-            formas.inserirForma(trapRet)
+            formas.setForma(trapRet)
             
             print('\n[Trapézio isósceles criado!!!] \n')
 
         elif escolha == 16:
-            formas.listarFormas()
+            formas.listFormas()
             print('\n')
+
         elif escolha == 17:
             key = input("Escolha a criação que você deseja apagar: ")
-            formas.listarFormas()
-            formas.removerForma(key)
+            formas.listFormas()
+            formas.removeForma(key)
             print('\n')
+        
         elif escolha == 18:
             print('\n Finalizando... ')
             break

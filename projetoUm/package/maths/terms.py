@@ -612,16 +612,16 @@ class FigsGeom:
         self.forms = {}
         self.count = 0
     
-    def inserirForma(self, instancia): #set
+    def setForma(self, instancia): 
         self.count += 1
         self.forms[str(self.count) + instancia.identif()] = instancia
     
-    def removerForma(self, key):
+    def removeForma(self, key):
         del self.forms[key]
 
-    def listarFormas(self): #get
+    def listFormas(self): #get
         for instancia in self.forms.keys():
             print(instancia)
             
-    def retornarForma(self,key):
+    def returnForma(self,key):
         return self.forms[key]
