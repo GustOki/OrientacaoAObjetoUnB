@@ -1,1 +1,1 @@
-Este repositório tem como propósito armazenar todos os códigos-rascunhos e exercícios feitos para a matéria Orientação a Objetos com foco em linguagem Python, ministrada pelo professor Henrique.
+Este repositório tem como propósito armazenar todos os códigos-rascunhos, exercícios e projetos feitos para a matéria Orientação a Objetos com foco em linguagem Python, ministrada pelo professor Henrique Moura.
