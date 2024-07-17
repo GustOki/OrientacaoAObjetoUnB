@@ -1,4 +1,4 @@
-#from my_libraries.shapes2d import *
+from package.maths.terms import *
 
 
 class CartesianBoard():
@@ -37,5 +37,3 @@ class CartesianBoard():
         
     def getShape(self,key):
         return self.shapes[key]
-            
-            
