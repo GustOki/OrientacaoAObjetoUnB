@@ -4,7 +4,7 @@ def workspace():
     formas = FigsGeom()
 
     while(True):
-        print("Seja bem-vindo à interface de criação de formas geométricas!\n")
+        print("\nSeja bem-vindo à interface de criação de formas geométricas!\n")
         print('\nDigite o número da forma geométrica que deseja criar ou opção:')
         print('1- Coordenada Única')
         print('2- Ponto')
