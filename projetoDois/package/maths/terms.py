@@ -2,133 +2,95 @@ import math
 
 #Classe Ponto
 class Point():
-    def __init__(self, n):
-        self.n = n
+    def __init__(self, color = None, coord = None):
+        self.color = color
+        self.coord = coord
 
-    def colorPoint(self):
-        vetorColorPoint = []
-        for i in range(0, self.n):
-            color = str(input(f"Digite a cor do seu ponto {i}: "))
-            vetorColorPoint.append(color)
-        
-        return vetorColorPoint
+    def setColorPoint(self):
+        self.color = input("Digite a cor do seu ponto: ")
+        return self.color
 
-    def coordPoint(self):
-        vetorCoordPoint = []
-        for i in range(0, self.n):
-            x = int(input(f"Digite a coordenada de x({i}): "))
-            y = int(input(f"Digite a coordenada de y({i}): "))
+    def setCoordPoint(self):
+        x = int(input("Digite a coordenada de x: "))
+        y = int(input("Digite a coordenada de y: "))
+        self.coord = (x, y)
+        return self.coord
 
-            vetor = []
-            vetor.append(x)
-            vetor.append(y)
-            vetorCoordPoint.append(vetor)
-
-        return vetorCoordPoint
-
-    def returnPointX(self, point):
-        self.point = point
-        vetorPointX = {}
-        for i in range(0, self.n):
-            vetorPointX[f'x({i})'] = self.point[i][0]
-        
-        return vetorPointX
-
-    def returnPointY(self, point): 
-        self.point = point
-        vetorPointY = {}
-        for i in range(0, self.n):
-            vetorPointY[f'y({i})'] = self.point[i][1]
-        
-        return vetorPointY
-    
     def getCoordPoint(self):
-        return self.coordPoint()
+        return self.coord
 
-    def showPoint(self, point, color):
-            num = int(input(f"Pontos criados: {point}. Digite a index que você quer consultar as informações de ponto: ")) 
-            print(f"Ponto solicitado: coordenada{point[num]} e de cor {color[num]}!")
+    def getColorPoint(self):
+        return self.color
+
+    def returnPointX(self):
+        return self.coord[0] if self.coord else None
+
+    def returnPointY(self):
+        return self.coord[1] if self.coord else None
+
+    def showPoint(self):
+        if self.coord and self.color:
+            print(f"O ponto criado tem a coordenada {self.coord} e cor {self.color}!")
+        else:
+            print("O ponto não foi definido completamente.")
 
     def identif(self):
         return '_ponto'
- 
 
 #Classe Reta
 class Line():
-    def __init__(self, n):
-        self.n = n
-        self.pointObj = Point(n)
-        self.coord = self.pointObj.getCoordPoint()
+    def __init__(self, points, color):
+        self.points = points
+        self.color = color
 
     def lenghtLine(self): 
-        if len(self.coord) >= 2:
-            deltaX = self.coord[1][0] - self.coord[0][0]
-            deltaY = self.coord[1][1] - self.coord[0][1]
+        if len(self.points) >= 2:
+            p1, p2 = self.points[0].getCoordPoint(), self.points[1].getCoordPoint()
+            deltaX = p2[0] - p1[0]
+            deltaY = p2[1] - p1[1]
             tamanho = math.sqrt(deltaX**2 + deltaY**2)
-            
             return tamanho
-        
         else:
             return "Não há pontos suficientes para formar uma linha."
 
-    def colorLine(self):
-        color = str(input(f"Digite a cor da reta: "))
-        return color
-
     def inclinacaoLine(self):
-        if len(self.coord) >= 2:
-            deltaX = self.coord[1][0] - self.coord[0][0]
-            deltaY = self.coord[1][1] - self.coord[0][1]
-            
-            if deltaX > 0:
+        if len(self.points) >= 2:
+            p1, p2 = self.points[0].getCoordPoint(), self.points[1].getCoordPoint()
+            deltaX = p2[0] - p1[0]
+            deltaY = p2[1] - p1[1]
+            if deltaX != 0:
                 inclinacao = deltaY / deltaX
                 return inclinacao
-            
             else:
                 return 'O seu deltaX é = 0, tente outro caso!'
-            
-        elif len(self.coord) == 1:
-            inclinacao = self.coord[0][1] / self.coord[0][0]
+        elif len(self.points) == 1:
+            p1 = self.points[0].getCoordPoint()
+            inclinacao = p1[1] / p1[0] if p1[0] != 0 else 'Indefinido'
             return inclinacao
 
     def coefLinear(self, coefAng):
-        self.coefAng = coefAng
-        if type(self.coefAng) == float:
-            coefLinear = self.coord[0][1] - self.coord[0][0] * self.coefAng
+        if isinstance(coefAng, float):
+            p1 = self.points[0].getCoordPoint()
+            coefLinear = p1[1] - p1[0] * coefAng
             return coefLinear
         else:
-            return "O seu deltaX é = 0, tente outro caso!"
+            return "Coeficiente angular inválido."
 
     def interpolar(self, coefAng, coefLinear, x):
         y = coefAng * x + coefLinear
         return y
     
-    def showLine(self, lenght, color, coefAng, coefLinear, interpolacao):
+    def showLine(self):
         lenght = self.lenghtLine()
         inclinacao = self.inclinacaoLine()
         coefAng = inclinacao if isinstance(inclinacao, float) else "Indefinida"
         coefLinear = self.coefLinear(coefAng) if isinstance(coefAng, float) else "Indefinido"
         interpolacao = self.interpolar(coefAng, coefLinear, 0) if isinstance(coefAng, float) else "Indefinida"
-        
-        print(f"A sua reta foi criada com {lenght} de tamanho e de cor {color}, com um coeficiente angular de {coefAng}, um coeficiente linear de {coefLinear} e uma interpolação de y = {interpolacao}!")
+
+        return print(f"\nA sua reta foi criada com {lenght} de tamanho e de cor {self.color}! Tendo como coeficiente angular: {coefAng}, coeficiente linear: {coefLinear} e com interpolação: {interpolacao}.\n")
 
     def identif(self):
         return '_reta'
-
-#Classe de coordenada única
-class coordUnique: 
-    def __init__(self, x, y):
-        self.__x = x
-        self.__y = y
-
-    def coordenadaX(self):
-        return self.__x
-    
-    def coordenadaY(self):
-        return self.__y
-    
-    def identif(self):
-        return '_coordenadaCirculo'
 
 #Classe Circulo
 class Circle():
@@ -136,29 +98,38 @@ class Circle():
         self.x = x
         self.y = y
         self.raio = raio
+        self.color = None
+        self.circunf = None
+        self.diametro = None
+        self.area = None
 
     def colorCircle(self):
-        color = str(input(f"Digite a cor do círculo: "))
-        return color
+        self.color = str(input(f"Digite a cor do círculo: "))
+        return self.color
 
-    def circunferenciaCircle(self):
-        circunf = 2 * math.pi * self.raio
-        return circunf
+    def calcCircunferenciaCircle(self):
+        self.circunf = 2 * math.pi * self.raio
+        return self.circunf
 
-    def diametroCircle(self):
-        diametro = 2 * self.raio
-        return diametro
+    def calcDiametroCircle(self):
+        self.diametro = 2 * self.raio
+        return self.diametro
 
-    def areaCircle(self):
-        area = math.pi * (self.raio ** 2)
-        return area
+    def calcAreaCircle(self):
+        self.area = math.pi * (self.raio ** 2)
+        return self.area
     
-    def showCircle(self, color, circunf, diametro, area):
-        circunf = self.circunferenciaCircle()
-        diametro = self.diametroCircle()
-        area = self.areaCircle()
+    def showCircle(self):
+        if self.color is None:
+            self.colorCircle()
+        if self.circunf is None:
+            self.calcCircunferenciaCircle()
+        if self.diametro is None:
+            self.calcDiametroCircle()
+        if self.area is None:
+            self.calcAreaCircle()
         
-        print(f"O seu círculo foi criado com {circunf} de circunferência e de cor {color}, com um diâmetro de {diametro} e uma área de {area}!")
+        print(f"\nO seu círculo foi criado com {self.circunf:.2f} de circunferência e de cor {self.color}, com um diâmetro de {self.diametro:.2f} e uma área de {self.area:.2f}!\n")
 
     def identif(self):
         return '_circulo'
@@ -167,30 +138,32 @@ class Circle():
 class Square():
     def __init__(self, __lado):
         self.__lado = self._validaLado(__lado)
+        self.color = None
+        self.area = None
+        self.perimetro = None
 
     def colorSquare(self):
-        color = str(input(f"Digite a cor do quadrado: "))
-        return color
+        self.color = str(input(f"Digite a cor do quadrado: "))
 
-    def _validaLado(self, lado): #valida se o comprimento do lado é maior que zero
+    def _validaLado(self, lado):
         if lado <= 0:
             raise ValueError("Atenção, o lado do quadrado deve ser maior que zero!")
         return lado
 
-    def areaSquare(self):
-        area = self.__lado**2
-        return area
-    
-    def perimetroSquare(self):
-        perimetro = self.__lado*4
-        return perimetro
-    
-    def showSquare(self, lado, color, area, perimetro):
-        area = self.areaSquare()
-        perimetro = self.perimetroSquare()
+    def calcAreaSquare(self):
+        self.area = self.__lado ** 2
+
+    def calcPerimetroSquare(self):
+        self.perimetro = self.__lado * 4
+
+    def showSquare(self):
+        if self.color is None or self.area is None or self.perimetro is None:
+            self.colorSquare()
+            self.calcAreaSquare()
+            self.calcPerimetroSquare()
         
-        print(f'O seu quadrado foi criado com cor {color} e com os lados de comprimento {lado}, com área de {area} e perímetro de {perimetro}!')
-    
+        print(f'\nO seu quadrado foi criado com cor {self.color} e com os lados de comprimento {self.__lado}, com área de {self.area} e perímetro de {self.perimetro}!\n')
+
     def identif(self):
         return '_quadrado'
     
@@ -199,11 +172,12 @@ class Rectangle():
     def __init__(self, rectBase, rectAlt):
         self.rectBase = self._validaLado(rectBase)
         self.rectAlt = self._validaLado(rectAlt)
-        self.color = self.colorRectangle()
+        self.color = None
+        self.area = None
+        self.perimetro = None
 
     def colorRectangle(self):
-        color = input("Digite a cor do retângulo: ")
-        return color
+        self.color = str(input(f"Digite a cor do retângulo: "))
 
     def _validaLado(self, lado):
         if lado <= 0:
@@ -211,15 +185,18 @@ class Rectangle():
         return lado
 
     def areaRectangle(self):
-        return self.rectBase * self.rectAlt
+        self.area = self.rectBase * self.rectAlt
 
     def perimetroRectangle(self):
-        return 2 * (self.rectBase + self.rectAlt)
+        self.perimetro = 2 * (self.rectBase + self.rectAlt)
 
-    def showRectangle(self, area, perimetro):
-        area = self.areaRectangle()
-        perimetro = self.perimetroRectangle()
-        print(f'O seu retângulo foi criado com cor {self.color} e com base de comprimento {self.rectBase} e altura de {self.rectAlt}, com área de {area} e perímetro de {perimetro}!')
+    def showRectangle(self):
+        if self.color is None or self.area is None or self.perimetro is None:
+            self.colorRectangle()
+            self.areaRectangle()
+            self.perimetroRectangle()
+
+        print(f'\nO seu retângulo foi criado com cor {self.color} e com base de comprimento {self.rectBase} e altura de {self.rectAlt}, com área de {self.area} e perímetro de {self.perimetro}!\n')
 
     def identif(self):
         return '_retangulo'
@@ -227,9 +204,9 @@ class Rectangle():
 
 #Classe Losango
 class Losango(Square):
-    def __init__ (self, __lado, diagMaior, diagMenor):
+    def __init__(self, __lado, diagMaior, diagMenor):
         super().__init__(__lado)
-        self.diagMaior = diagMaior
+        self.diagMaior = self._validaDiag(diagMaior)
         self.diagMenor = self._validaDiag(diagMenor)
         self.color = self.colorLosango()
 
@@ -240,15 +217,15 @@ class Losango(Square):
     def areaLosango(self):
         area = (self.diagMaior * self.diagMenor) / 2
         return area
-    
+
     def _validaDiag(self, diag):
         if diag <= 0:
             raise ValueError("Atenção, a diagonal deve ser maior que zero!")
         return diag
-    
+
     def showLosango(self):
         area = self.areaLosango()
-        print(f'O seu losango foi criado com cor {self.color} com área de {area}!')
+        print(f'\nO seu losango foi criado com cor {self.color} e área de {area}!\n')
 
     def identif(self):
         return '_losango'
@@ -297,7 +274,7 @@ class TriangleEquil():
         area = self.areaTriEquil()
         perimetro = self.perimetroTriEquil()
         
-        print(f"O seu triângulo equilátero foi criado com cor {self._color}, com uma altura de {altura}, com {area} de área e {perimetro} de perímetro!")
+        print(f"\nO seu triângulo equilátero foi criado com cor {self.color}, com uma altura de {altura}, com {area} de área e {perimetro} de perímetro!\n")
 
     def identif(self):
         return '_trianguloEquilatero'
@@ -314,7 +291,7 @@ class TriangleIsos(TriangleEquil):
 
     def _validaBase(self, base):
         if base <= 0 or base >= 2 * self.lado:
-            raise ValueError("A base do triângulo isósceles deve ser maior que zero e menor que dois vezes o lado igual.")
+            raise ValueError("A base do triângulo isósceles deve ser maior que zero e menor que duas vezes o lado igual.")
         return base
 
     def alturaTriIsos(self):
@@ -334,7 +311,7 @@ class TriangleIsos(TriangleEquil):
         area = self.areaTriIsos()
         perimetro = self.perimetroTriIsos()
         
-        print(f"O seu triângulo isósceles foi criado com cor {self.color}, com uma altura de {altura}, com {area} de área e {perimetro} de perímetro!")
+        print(f"\nO seu triângulo isósceles foi criado com cor {self.color}, com uma altura de {altura:.2f}, uma área de {area:.2f} e um perímetro de {perimetro:.2f}.\n")
 
     def identif(self):
         return '_trianguloIsosceles'
@@ -360,73 +337,51 @@ class TriangleEscaleno():
         return lado
 
     def _verificaDiferenca(self):
-        aux = False
-
-        if self.x + self.y > self.z and self.y + self.z > self.x and self.z + self.x > self.y:
-            if self.x != self.y and self.y != self.z and self.x != self.z:
-                aux = True
-                return aux
-            
-            else:
-                return aux
-            
-        else: 
-            return aux
+        return (self.x + self.y > self.z and 
+                self.y + self.z > self.x and 
+                self.z + self.x > self.y and 
+                self.x != self.y and 
+                self.y != self.z and 
+                self.x != self.z)
         
     def _menorAngulo(self):
         m = min(self.x, self.y, self.z)
         aux = 180 / (self.x + self.y + self.z)
         menorTeta = aux * m
-
         return menorTeta
         
     def _maiorAngulo(self):
         m = max(self.x, self.y, self.z)
         aux = 180 / (self.x + self.y + self.z)
         maiorTeta = aux * m
-
         return maiorTeta
 
     def angulosInternos(self):
         menorTeta = self._menorAngulo()
         maiorTeta = self._maiorAngulo()
         TetaMeio = 180 - menorTeta - maiorTeta
-        
-        print(f"{maiorTeta}, {menorTeta}, {TetaMeio}")
+        print(f"{maiorTeta:.2f}, {menorTeta:.2f}, {TetaMeio:.2f}")
 
     def alturaTriEsc(self): 
-        verificador = self._verificaDiferenca()
-
-        if verificador:
-            a = self._menorAngulo()
-            aux = math.sin(a)
-            altura = self.z * aux
-
+        if self._verificaDiferenca():
+            a = math.radians(self._menorAngulo())
+            altura = self.z * math.sin(a)
             return altura
-        
         else:
             return "As entradas não são válidas!"
 
     def areaTriEsc(self):
-        verificador = self._verificaDiferenca()
-
-        if verificador:
-            altura =  self.alturaTriEsc()
+        if self._verificaDiferenca():
+            altura = self.alturaTriEsc()
             area = (self.z * altura) / 2
-
             return area
-        
         else:
             return "As entradas não são válidas!"
 
     def perimetroTriEsc(self):
-        verificador = self._verificaDiferenca()
-
-        if verificador:
+        if self._verificaDiferenca():
             perimetro = self.x + self.y + self.z
-
             return perimetro
-        
         else: 
             return "As entradas não são válidas!"
         
@@ -434,8 +389,7 @@ class TriangleEscaleno():
         altura = self.alturaTriEsc()
         area = self.areaTriEsc()
         perimetro = self.perimetroTriEsc()
-        
-        print(f"O seu triângulo escaleno foi criado com cor {self._color}, com uma altura de {altura}, com {area} de área e {perimetro} de perímetro!")
+        print(f"\nO seu triângulo escaleno foi criado com cor {self._color}, com uma altura de {altura}, com {area} de área e {perimetro} de perímetro!\n")
 
     def identif(self):
         return '_trianguloEscaleno'
@@ -443,30 +397,29 @@ class TriangleEscaleno():
 
 from abc import ABC, abstractmethod
 #Classe Poligono        
-class Polygon(ABC): 
+class Polygon(ABC):
     def __init__(self, n, tamanhoLado):
         self.n = self._validaLado(n)
         self.lado = self._validaTamanhoLado(tamanhoLado)
 
-    @abstractmethod
+    @staticmethod
     def _validaLado(n):
         if n < 3:
             raise ValueError("O polígono deve ter pelo menos 3 lados!")
         return n
 
-    @abstractmethod
+    @staticmethod
     def _validaTamanhoLado(tamanhoLado):
         if tamanhoLado <= 0:
             raise ValueError("O comprimento do lado deve ser maior que zero!")
         return tamanhoLado
 
+    @abstractmethod
     def areaPolygon(self):
         pass
 
     def perimetroPolygon(self):
-        perimetro = self.n * self.lado
-
-        return perimetro
+        return self.n * self.lado
     
     def identif(self):
         return '_poligono'
@@ -476,23 +429,13 @@ class Pentagon(Polygon):
     def __init__(self, tamanhoLado):
         super().__init__(5, tamanhoLado)
 
-    def _validaLado(self, n):
-        if n != 5:
-            raise ValueError("Um pentágono deve ter exatamente 5 lados!")
-        return n
-
-    def _validaTamanhoLado(self, tamanhoLado):
-        if tamanhoLado <= 0:
-            raise ValueError("O comprimento do lado deve ser maior que zero!")
-        return tamanhoLado
-
     def areaPolygon(self):
         apotema = self.lado / (2 * math.tan(math.pi / 5))
         area = (self.perimetroPolygon() * apotema) / 2
         return area
 
     def showPentagon(self):
-        print(f"O seu pentágono foi criado com lados de comprimento {self.lado}, com área de {self.areaPolygon()} e perímetro de {self.perimetroPolygon()}!")
+        print(f"\nO seu pentágono foi criado com lados de comprimento {self.lado}, com área de {self.areaPolygon()} e perímetro de {self.perimetroPolygon()}!\n")
 
     def identif(self):
         return '_pentagono'
@@ -502,26 +445,12 @@ class Hexagon(Polygon):
     def __init__(self, tamanhoLado):
         super().__init__(6, tamanhoLado)
 
-    def _validaLado(self, n):
-        if n != 6:
-            raise ValueError("Um hexágono deve ter exatamente 6 lados!")
-        return n
-
-    def _validaTamanhoLado(self, tamanhoLado):
-        if tamanhoLado <= 0:
-            raise ValueError("O comprimento do lado do hexágono deve ser maior que zero!")
-        return tamanhoLado
-
     def areaPolygon(self):
         area = (3 * math.sqrt(3) * self.lado ** 2) / 2
         return area
     
-    def perimetroPolygon(self):
-        perimetro = 6 * self.lado
-        return perimetro
-    
     def showHexagon(self):
-        print(f"O seu hexágono foi criado com lados de comprimento {self.lado}, com área de {self.areaPolygon()} e perímetro de {self.perimetroPolygon()}!")
+        print(f"\nO seu hexágono foi criado com lados de comprimento {self.lado}, com área de {self.areaPolygon()} e perímetro de {self.perimetroPolygon()}!\n")
 
     def identif(self):
         return '_hexagono'
@@ -571,12 +500,11 @@ class TrapezioIsosceles:
         area = self.areaTrapIsos
         perimetro = self.perimetroTrapIsos
         
-        print(f"O seu trapézio isósceles foi criado com com uma altura de {altura}, com {area} de área e {perimetro} de perímetro!")
+        print(f"\nO seu trapézio isósceles foi criado com uma altura de {altura}, com {area} de área e {perimetro} de perímetro!\n")
 
     def identif(self):
         return '_trapezioIsosceles'
 
-#Classe Trapézio Retângulo
 class TrapezioRetangulo(TrapezioIsosceles): 
     def __init__(self, baseMenor, baseMaior, altura):
         super().__init__(baseMenor, baseMaior, altura)
@@ -599,29 +527,36 @@ class TrapezioRetangulo(TrapezioIsosceles):
     def showTrapRet(self):
         altura = self.alturaTrapIsos
         area = self.areaTrapIsos
-        perimetro = self.perimetroTrapRet
+        perimetro = self.perimetroTrapRet()
         
-        print(f"O seu trapézio retângulo foi criado com cor {self._color}, com uma altura de {altura}, com {area} de área e {perimetro} de perímetro!")
+        print(f"\nO seu trapézio retângulo foi criado com cor {self._color}, com uma altura de {altura}, com {area} de área e {perimetro} de perímetro!\n")
 
     def identif(self):
         return '_trapezioRetangulo'
 
 
-class FigsGeom: 
+class FigsGeom:
     def __init__(self):
         self.forms = {}
         self.count = 0
     
-    def setForma(self, instancia): 
+    def setForma(self, instancia):
         self.count += 1
-        self.forms[str(self.count) + instancia.identif()] = instancia
+        self.forms[self.count] = instancia
     
     def removeForma(self, key):
-        del self.forms[key]
+        if key in self.forms:
+            del self.forms[key]
+            return True
+        else:
+            return False
 
-    def listFormas(self): #get
-        for instancia in self.forms.keys():
-            print(instancia)
-            
-    def returnForma(self,key):
-        return self.forms[key]
+    def listFormas(self):
+        if not self.forms:
+            print("Ops, nenhuma forma geométrica foi criada ainda...")
+        else:
+            for key, form in self.forms.items():
+                print(f"{key}: {form.identif()}")
+    
+    def returnForma(self, key):
+        return self.forms.get(key, None)
