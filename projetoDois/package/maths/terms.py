@@ -557,7 +557,7 @@ class Hexagon(Polygon):
         return '_hexagono'
     
 #Classe Trapézio Isosceles
-class TrapezioIsosceles:
+class TrapezioIsosceles():
     def __init__(self, baseMenor, baseMaior, altura):
         self.baseMenor = self._validaBase(baseMenor)
         self.baseMaior = self._validaBase(baseMaior)
@@ -642,7 +642,7 @@ class TrapezioRetangulo(TrapezioIsosceles):
         return '_trapezioRetangulo'
 
 
-class FigsGeom:
+class FigsGeom():
     def __init__(self):
         self.forms = {}
         self.count = 0
