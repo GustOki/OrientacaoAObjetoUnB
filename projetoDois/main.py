@@ -23,17 +23,18 @@ def workspace():
         print('15- Listar formas criadas')
         print('16- Remover forma criada')
         print('17- Mostrar detalhes de uma forma criada')
-        print('18- Sair')
+        print('18- Verificar relação ponto-forma')
+        print('19- Verificar relação ponto-reta')
+        print('20- Sair')
 
         escolha = int(input("O que deseja fazer?: "))
         if escolha == 1: #Ponto
-            ponto_temp = Point()
 
-            color = ponto_temp.setColorPoint()
-            coord = ponto_temp.setCoordPoint()
-
-            ponto = Point(color, coord)
-            formas.setForma(ponto)
+            pontos = Point.criarPontos()
+            for ponto in pontos:
+                formas.setForma(ponto)
+            
+            Point.calcularDistancias(pontos)
         
             print('\n[Ponto criado!!!] \n')
 
@@ -187,6 +188,8 @@ def workspace():
                 print(f'\nA forma geométrica com a key {key} não foi encontrada.\n')
 
         elif escolha == 17: #Detalhes
+            formas.listFormas()
+            print('\n')
             key = int(input("Digite o número da forma para mostrar detalhes: "))
             form = formas.returnForma(key)
             if form:
@@ -194,21 +197,44 @@ def workspace():
             else:
                 print("\n[Erro: Forma não encontrada!]\n")
 
-        elif escolha == 18:
-            print("\nSaindo do programa. Até mais!\n")
-            break
-
-        else:
-            print("\nOpção inválida, tente novamente.\n")
+        elif escolha == 18: # Verificar relação ponto-forma
+            key_ponto = int(input("Digite o número do ponto: "))
+            key_forma = int(input("Digite o número da forma geométrica (círculo ou retângulo): "))
             
-        continuar = input("Deseja continuar? (s/n): ")
-        if continuar.lower() != 's':
-            print("Encerrando...")
+            ponto = formas.returnForma(key_ponto)
+            forma = formas.returnForma(key_forma)
+            
+            if isinstance(forma, Circle):
+                print(f"O ponto está dentro do círculo? {'Sim' if forma.pointDentro(ponto) else 'Não'}")
+            elif isinstance(forma, Rectangle):
+                print(f"O ponto está dentro do retângulo? {'Sim' if forma.pointDentro(ponto) else 'Não'}")
+            else:
+                print("Forma geométrica não suportada para esta verificação.")
+
+        elif escolha == 19: # Verificar relação ponto-reta
+            key_ponto = int(input("Digite o número do ponto: "))
+            key_reta = int(input("Digite o número da reta: "))
+            
+            ponto = formas.returnForma(key_ponto)
+            reta = formas.returnForma(key_reta)
+            
+            if isinstance(reta, Line):
+                distancia = reta.distanciaPoint(ponto)
+                proximidade = reta.segmPointProx(ponto)
+                print(f"A distância do ponto à reta é: {distancia}")
+                print(f"O ponto está próximo da reta? {'Sim' if proximidade else 'Não'}")
+            else:
+                print("Forma geométrica não suportada para esta verificação.")
+        
+        elif escolha == 20:
+            print("Saindo...")
             break
 
 def showDetails(form):
     if form.identif() == '_ponto':
         form.showPoint()
+        distPointOrigem = form.distanciaOrigem()
+        print(f"Distância até a origem: {distPointOrigem}")
 
     elif form.identif() == '_reta':
         form.showLine()
@@ -247,7 +273,7 @@ def showDetails(form):
         form.showTrapRet()
     
     else:
-        print("Forma desconhecida ou sem detalhes adicionais para mostrar.")
+        print("Desculpe, não há muitos detalhes para mostrar...")
     
 if __name__ == "__main__":
 

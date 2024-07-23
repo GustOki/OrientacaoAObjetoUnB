@@ -11,8 +11,8 @@ class Point():
         return self.color
 
     def setCoordPoint(self):
-        x = int(input("Digite a coordenada de x: "))
-        y = int(input("Digite a coordenada de y: "))
+        x = int(input("Digite a coordenada de X: "))
+        y = int(input("Digite a coordenada de Y: "))
         self.coord = (x, y)
         return self.coord
 
@@ -36,6 +36,40 @@ class Point():
 
     def identif(self):
         return '_ponto'
+    
+    def distanciaOrigem(self):
+        if self.coord:
+            return math.sqrt(self.coord[0]**2 + self.coord[1]**2)
+        return None
+    
+    def distanciaPoint(self, other):
+        if self.coord and other.coord:
+            return math.sqrt((self.coord[0] - other.coord[0])**2 + (self.coord[1] - other.coord[1])**2)
+        return None
+
+    @staticmethod
+    def criarPontos():
+        pontos = []
+        while True:
+            ponto_temp = Point()
+            ponto_temp.setColorPoint()
+            ponto_temp.setCoordPoint()
+            pontos.append(ponto_temp)
+            continuar = input("Deseja criar outro ponto? (s/n): ")
+            if continuar.lower() != 's':
+                break
+        return pontos
+
+    def calcularDistancias(pontos):
+        if len(pontos) < 2:
+            print("Você precisa criar pelo menos dois pontos para calcular a distância entre eles.")
+            return
+
+        for i in range(len(pontos)):
+            for j in range(i + 1, len(pontos)):
+                dist = pontos[i].distanciaPoint(pontos[j])
+                print(f"A distância entre o ponto {i+1} {pontos[i].coord} e o ponto {j+1} {pontos[j].coord} é: {dist}")
+
 
 #Classe Reta
 class Line():
@@ -91,6 +125,33 @@ class Line():
 
     def identif(self):
         return '_reta'
+    
+    def distanciaPoint(self, point):
+        if len(self.points) >= 2 and point.coord:
+            x0, y0 = point.coord
+            p1, p2 = self.points[0].getCoordPoint(), self.points[1].getCoordPoint()
+            x1, y1 = p1
+            x2, y2 = p2
+            num = abs((y2 - y1) * x0 - (x2 - x1) * y0 + x2 * y1 - y2 * x1)
+            den = math.sqrt((y2 - y1)**2 + (x2 - x1)**2)
+            return num / den
+        return None
+
+    def segmPointProx(self, point, tolerance=1e-6):
+        if len(self.points) >= 2 and point.coord:
+            x0, y0 = point.coord
+            p1, p2 = self.points[0].getCoordPoint(), self.points[1].getCoordPoint()
+            x1, y1 = p1
+            x2, y2 = p2
+            if x1 == x2:
+                return min(y1, y2) - tolerance <= y0 <= max(y1, y2) + tolerance
+            elif y1 == y2:
+                return min(x1, x2) - tolerance <= x0 <= max(x1, x2) + tolerance
+            else:
+                lambda1 = (x0 - x1) / (x2 - x1)
+                lambda2 = (y0 - y1) / (y2 - y1)
+                return abs(lambda1 - lambda2) <= tolerance and 0 <= lambda1 <= 1 and 0 <= lambda2 <= 1
+        return False
 
 #Classe Circulo
 class Circle():
@@ -133,6 +194,12 @@ class Circle():
 
     def identif(self):
         return '_circulo'
+    
+    def pointDentro(self, point):
+        if point.coord:
+            dist = math.sqrt((point.coord[0] - self.x)**2 + (point.coord[1] - self.y)**2)
+            return dist <= self.raio
+        return False
 
 #Classe Quadrado
 class Square():
@@ -200,6 +267,12 @@ class Rectangle():
 
     def identif(self):
         return '_retangulo'
+    
+    def pointDentro(self, point):
+        if point.coord:
+            x, y = point.coord
+            return self.x <= x <= self.x + self.rectBase and self.y <= y <= self.y + self.rectAlt
+        return False
     
 
 #Classe Losango
