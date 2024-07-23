@@ -29,8 +29,8 @@ def workspace():
 
         escolha = int(input("O que deseja fazer?: "))
         if escolha == 1: #Ponto
-
             pontos = Point.criarPontos()
+            
             for ponto in pontos:
                 formas.setForma(ponto)
             
@@ -44,8 +44,8 @@ def workspace():
 
             for i in range(num_points):
                 color = input(f"Digite a cor do ponto {i}: ")
-                x = int(input(f"Digite a coordenada x do ponto {i}: "))
-                y = int(input(f"Digite a coordenada y do ponto {i}: "))
+                x = int(input(f"Digite a coordenada X do ponto {i}: "))
+                y = int(input(f"Digite a coordenada Y do ponto {i}: "))
 
                 point = Point(color, (x, y))
                 points.append(point)
@@ -125,6 +125,7 @@ def workspace():
             x = int(input("Lado X: "))
             y = int(input("Lado Y: "))
             z = int(input("Lado Z: "))
+            
             try:
                 triEscal = TriangleEscaleno(x, y, z)
                 formas.setForma(triEscal)
@@ -182,16 +183,19 @@ def workspace():
         elif escolha == 16: #Remoção
             formas.listFormas()
             key = int(input("Insira a key da forma geométrica que você queira apagar: "))
+            
             if formas.removeForma(key):
-                print(f'\nForma {key} removida!!! \n')
+                print(f'\nForma {key} removida!!! \n')            
             else:
                 print(f'\nA forma geométrica com a key {key} não foi encontrada.\n')
 
         elif escolha == 17: #Detalhes
             formas.listFormas()
             print('\n')
+            
             key = int(input("Digite o número da forma para mostrar detalhes: "))
             form = formas.returnForma(key)
+            
             if form:
                 showDetails(form)
             else:
@@ -205,7 +209,7 @@ def workspace():
             forma = formas.returnForma(key_forma)
             
             if isinstance(forma, Circle):
-                print(f"O ponto está dentro do círculo? {'Sim' if forma.pointDentro(ponto) else 'Não'}")
+                print(f"O ponto está dentro do círculo? {'Sim' if forma.pointDentro(ponto) else 'Não'}") 
             elif isinstance(forma, Rectangle):
                 print(f"O ponto está dentro do retângulo? {'Sim' if forma.pointDentro(ponto) else 'Não'}")
             else:
@@ -221,6 +225,7 @@ def workspace():
             if isinstance(reta, Line):
                 distancia = reta.distanciaPoint(ponto)
                 proximidade = reta.segmPointProx(ponto)
+                
                 print(f"A distância do ponto à reta é: {distancia}")
                 print(f"O ponto está próximo da reta? {'Sim' if proximidade else 'Não'}")
             else:
@@ -228,12 +233,14 @@ def workspace():
         
         elif escolha == 20:
             print("Saindo...")
+            
             break
 
 def showDetails(form):
     if form.identif() == '_ponto':
         form.showPoint()
         distPointOrigem = form.distanciaOrigem()
+        
         print(f"Distância até a origem: {distPointOrigem}")
 
     elif form.identif() == '_reta':
@@ -276,9 +283,9 @@ def showDetails(form):
         print("Desculpe, não há muitos detalhes para mostrar...")
     
 if __name__ == "__main__":
-
     print("O arquivo 'testbench.py' foi envocado como programa")
     print(f'__name__ == {__name__}')
+    
     workspace()
 
 else:
