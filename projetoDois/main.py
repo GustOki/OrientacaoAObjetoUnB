@@ -143,19 +143,23 @@ def workspace():
                 poligono = Hexagon(tamanhoLado)
             else:
                 print("Apenas pentágonos (5 lados) e hexágonos (6 lados) são suportados no momento.")
+            
             formas.setForma(poligono)
+            
             print('\n[Polígono criado!!!] \n')
 
         elif escolha == 11: #Pentágono
             tamanhoLado = int(input("Tamanho dos lados: "))
             pentagono = Pentagon(tamanhoLado)
             formas.setForma(pentagono)
+            
             print('\n[Pentágono criado!!!] \n')
 
         elif escolha == 12: #Hexágono
             tamanhoLado = int(input("Tamanho dos lados: "))
             hexagono = Hexagon(tamanhoLado)
             formas.setForma(hexagono)
+            
             print('\n[Hexágono criado!!!] \n')
 
         elif escolha == 13: # Trapézio Isósceles
@@ -233,7 +237,6 @@ def workspace():
         
         elif escolha == 20:
             print("Saindo...")
-            
             break
 
 def showDetails(form):
