@@ -8,12 +8,14 @@ class Point():
 
     def setColorPoint(self):
         self.color = input("Digite a cor do seu ponto: ")
+        
         return self.color
 
     def setCoordPoint(self):
-        x = int(input("Digite a coordenada de x: "))
-        y = int(input("Digite a coordenada de y: "))
+        x = int(input("Digite a coordenada de X: "))
+        y = int(input("Digite a coordenada de Y: "))
         self.coord = (x, y)
+        
         return self.coord
 
     def getCoordPoint(self):
@@ -36,6 +38,42 @@ class Point():
 
     def identif(self):
         return '_ponto'
+    
+    def distanciaOrigem(self):
+        if self.coord:
+            return math.sqrt(self.coord[0]**2 + self.coord[1]**2)
+        
+        return None
+    
+    def distanciaPoint(self, other):
+        if self.coord and other.coord:
+            return math.sqrt((self.coord[0] - other.coord[0])**2 + (self.coord[1] - other.coord[1])**2)
+        
+        return None
+
+    @staticmethod
+    def criarPontos():
+        pontos = []
+        while True:
+            ponto_temp = Point()
+            ponto_temp.setColorPoint()
+            ponto_temp.setCoordPoint()
+            pontos.append(ponto_temp)
+            continuar = input("Deseja criar outro ponto? (s/n): ")
+            if continuar.lower() != 's':
+                break
+        
+        return pontos
+
+    def calcularDistancias(pontos):
+        if len(pontos) < 2:
+            print("Você precisa criar pelo menos dois pontos para calcular a distância entre eles.")
+            return
+
+        for i in range(len(pontos)):
+            for j in range(i + 1, len(pontos)):
+                dist = pontos[i].distanciaPoint(pontos[j])
+                print(f"A distância entre o ponto {i+1} {pontos[i].coord} e o ponto {j+1} {pontos[j].coord} é: {dist}")
 
 #Classe Reta
 class Line():
@@ -49,6 +87,7 @@ class Line():
             deltaX = p2[0] - p1[0]
             deltaY = p2[1] - p1[1]
             tamanho = math.sqrt(deltaX**2 + deltaY**2)
+            
             return tamanho
         else:
             return "Não há pontos suficientes para formar uma linha."
@@ -63,15 +102,18 @@ class Line():
                 return inclinacao
             else:
                 return 'O seu deltaX é = 0, tente outro caso!'
+        
         elif len(self.points) == 1:
             p1 = self.points[0].getCoordPoint()
             inclinacao = p1[1] / p1[0] if p1[0] != 0 else 'Indefinido'
+            
             return inclinacao
 
     def coefLinear(self, coefAng):
         if isinstance(coefAng, float):
             p1 = self.points[0].getCoordPoint()
             coefLinear = p1[1] - p1[0] * coefAng
+            
             return coefLinear
         else:
             return "Coeficiente angular inválido."
@@ -91,6 +133,38 @@ class Line():
 
     def identif(self):
         return '_reta'
+    
+    def distanciaPoint(self, point):
+        if len(self.points) >= 2 and point.coord:
+            x0, y0 = point.coord
+            p1, p2 = self.points[0].getCoordPoint(), self.points[1].getCoordPoint()
+            x1, y1 = p1
+            x2, y2 = p2
+            num = abs((y2 - y1) * x0 - (x2 - x1) * y0 + x2 * y1 - y2 * x1)
+            den = math.sqrt((y2 - y1)**2 + (x2 - x1)**2)
+            
+            return num / den
+        
+        return None
+
+    def segmPointProx(self, point, tolerance=1e-6):
+        if len(self.points) >= 2 and point.coord:
+            x0, y0 = point.coord
+            p1, p2 = self.points[0].getCoordPoint(), self.points[1].getCoordPoint()
+            x1, y1 = p1
+            x2, y2 = p2
+            
+            if x1 == x2:
+                return min(y1, y2) - tolerance <= y0 <= max(y1, y2) + tolerance
+            elif y1 == y2:
+                return min(x1, x2) - tolerance <= x0 <= max(x1, x2) + tolerance
+            else:
+                lambda1 = (x0 - x1) / (x2 - x1)
+                lambda2 = (y0 - y1) / (y2 - y1)
+                
+                return abs(lambda1 - lambda2) <= tolerance and 0 <= lambda1 <= 1 and 0 <= lambda2 <= 1
+       
+        return False
 
 #Classe Circulo
 class Circle():
@@ -133,6 +207,13 @@ class Circle():
 
     def identif(self):
         return '_circulo'
+    
+    def pointDentro(self, point):
+        if point.coord:
+            dist = math.sqrt((point.coord[0] - self.x)**2 + (point.coord[1] - self.y)**2)
+            return dist <= self.raio
+        
+        return False
 
 #Classe Quadrado
 class Square():
@@ -148,6 +229,7 @@ class Square():
     def _validaLado(self, lado):
         if lado <= 0:
             raise ValueError("Atenção, o lado do quadrado deve ser maior que zero!")
+        
         return lado
 
     def calcAreaSquare(self):
@@ -182,6 +264,7 @@ class Rectangle():
     def _validaLado(self, lado):
         if lado <= 0:
             raise ValueError("Atenção, o lado do retângulo deve ser maior que zero!")
+        
         return lado
 
     def areaRectangle(self):
@@ -200,6 +283,13 @@ class Rectangle():
 
     def identif(self):
         return '_retangulo'
+    
+    def pointDentro(self, point):
+        if point.coord:
+            x, y = point.coord
+            return self.x <= x <= self.x + self.rectBase and self.y <= y <= self.y + self.rectAlt
+        
+        return False
     
 
 #Classe Losango
@@ -221,6 +311,7 @@ class Losango(Square):
     def _validaDiag(self, diag):
         if diag <= 0:
             raise ValueError("Atenção, a diagonal deve ser maior que zero!")
+        
         return diag
 
     def showLosango(self):
@@ -235,6 +326,7 @@ class TriangleEquil():
     def __init__(self, lado):
         if lado <= 0:
             raise ValueError("O lado deve ser maior que zero.")
+        
         self.lado = lado
         self.color = self.colorTriEquil()
 
@@ -292,6 +384,7 @@ class TriangleIsos(TriangleEquil):
     def _validaBase(self, base):
         if base <= 0 or base >= 2 * self.lado:
             raise ValueError("A base do triângulo isósceles deve ser maior que zero e menor que duas vezes o lado igual.")
+        
         return base
 
     def alturaTriIsos(self):
@@ -334,6 +427,7 @@ class TriangleEscaleno():
     def _verificaLado(self, lado):
         if lado <= 0:
             raise ValueError("O lado deve ser maior que zero.")
+        
         return lado
 
     def _verificaDiferenca(self):
@@ -348,18 +442,21 @@ class TriangleEscaleno():
         m = min(self.x, self.y, self.z)
         aux = 180 / (self.x + self.y + self.z)
         menorTeta = aux * m
+        
         return menorTeta
         
     def _maiorAngulo(self):
         m = max(self.x, self.y, self.z)
         aux = 180 / (self.x + self.y + self.z)
         maiorTeta = aux * m
+        
         return maiorTeta
 
     def angulosInternos(self):
         menorTeta = self._menorAngulo()
         maiorTeta = self._maiorAngulo()
         TetaMeio = 180 - menorTeta - maiorTeta
+        
         print(f"{maiorTeta:.2f}, {menorTeta:.2f}, {TetaMeio:.2f}")
 
     def alturaTriEsc(self): 
@@ -389,6 +486,7 @@ class TriangleEscaleno():
         altura = self.alturaTriEsc()
         area = self.areaTriEsc()
         perimetro = self.perimetroTriEsc()
+        
         print(f"\nO seu triângulo escaleno foi criado com cor {self._color}, com uma altura de {altura}, com {area} de área e {perimetro} de perímetro!\n")
 
     def identif(self):
@@ -406,12 +504,14 @@ class Polygon(ABC):
     def _validaLado(n):
         if n < 3:
             raise ValueError("O polígono deve ter pelo menos 3 lados!")
+        
         return n
 
     @staticmethod
     def _validaTamanhoLado(tamanhoLado):
         if tamanhoLado <= 0:
             raise ValueError("O comprimento do lado deve ser maior que zero!")
+        
         return tamanhoLado
 
     @abstractmethod
@@ -432,6 +532,7 @@ class Pentagon(Polygon):
     def areaPolygon(self):
         apotema = self.lado / (2 * math.tan(math.pi / 5))
         area = (self.perimetroPolygon() * apotema) / 2
+        
         return area
 
     def showPentagon(self):
@@ -456,7 +557,7 @@ class Hexagon(Polygon):
         return '_hexagono'
     
 #Classe Trapézio Isosceles
-class TrapezioIsosceles:
+class TrapezioIsosceles():
     def __init__(self, baseMenor, baseMaior, altura):
         self.baseMenor = self._validaBase(baseMenor)
         self.baseMaior = self._validaBase(baseMaior)
@@ -466,12 +567,14 @@ class TrapezioIsosceles:
     def _validaBase(base):
         if base <= 0:
             raise ValueError("A base do trapézio deve ser maior que zero!")
+        
         return base
     
     @staticmethod
     def _validaAltura(altura):
         if altura <= 0:
             raise ValueError("A altura do trapézio deve ser maior que zero!")
+        
         return altura
 
     @property
@@ -483,12 +586,14 @@ class TrapezioIsosceles:
     def ladoTrapIsos(self):
         aux = (self.baseMaior - self.baseMenor) / 2
         lado = (self._altura ** 2 + aux ** 2) ** 0.5
+        
         return lado
     
     @property
     def perimetroTrapIsos(self):
         lado = self.ladoTrapIsos
         perimetro = lado * 2 + self.baseMenor + self.baseMaior
+        
         return perimetro
     
     @property
@@ -517,11 +622,13 @@ class TrapezioRetangulo(TrapezioIsosceles):
     def __ladoTrapRet(self):
         aux = self.baseMaior - self.baseMenor
         lado = math.sqrt(aux ** 2 + self._altura ** 2)
+        
         return lado
 
     def perimetroTrapRet(self):
         lado = self.__ladoTrapRet()
         perimetro = self.baseMaior + self.baseMenor + lado + self._altura
+        
         return perimetro
 
     def showTrapRet(self):
@@ -535,7 +642,7 @@ class TrapezioRetangulo(TrapezioIsosceles):
         return '_trapezioRetangulo'
 
 
-class FigsGeom:
+class FigsGeom():
     def __init__(self):
         self.forms = {}
         self.count = 0
