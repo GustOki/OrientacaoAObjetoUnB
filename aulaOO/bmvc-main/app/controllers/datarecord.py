@@ -15,7 +15,7 @@ class DataRecord():
 
     def read(self):
         try:
-            with open("app/controllers/db/user_accounts.json", "r") as arquivo_json:
+            with open("app/controllers/db/user_account.json", "r") as arquivo_json:
                 user_data = json.load(arquivo_json)
                 self.__user_accounts = [UserAccount(**data) for data in user_data]
         except FileNotFoundError:
