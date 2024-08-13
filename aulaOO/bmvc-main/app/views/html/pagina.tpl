@@ -27,15 +27,15 @@
 
     <h1>Minha página com interação de modelos :)</h1>
 
-    simbolo-% if transfered:
+    % if transfered:
         <div>
             <h2>Dados do Usuário:</h2>
-            <p>Username: chaves-duplas data.username chaves-duplas </p>
-            <p>Password: chaves-duplas data.password chaves-duplas </p>
+            <p>Username: {{current_user.username}} </p>
+            <p>Password: {{current_user.password}} </p>
         </div>
-    simbolo-% else:
+    % else:
         <h2>Porém, desta vez não foram transferidas quaisquer informações ): </h2>
-    simbolo-% end
+    % end
 
 </body>
 </html>
