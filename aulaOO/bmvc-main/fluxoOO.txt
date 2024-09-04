@@ -1,0 +1,40 @@
+Arquitetura Geral
+
+    app.py: Este é o arquivo principal que contém as rotas e controla o fluxo de login e logout.
+    application.py: Este arquivo contém a classe Application, que gerencia a lógica de autenticação e renderização das páginas.
+    datarecord.py: Este arquivo contém a classe DataRecord, que atua como um "banco de dados" em memória usando JSON para armazenar as contas de usuários e as sessões autenticadas.
+
+Fluxo de Login
+
+    Página de Login:
+        Quando o usuário acessa a rota /portal com o método GET, a função login() é chamada e renderiza a página de login (portal).
+
+    Autenticação:
+        Quando o usuário envia o formulário de login na rota /portal com o método POST, a função action_portal() é chamada.
+        A função extrai o username e o password do formulário.
+        Em seguida, chama o método authenticate_user da classe Application, passando o username e o password.
+
+    Verificação de Credenciais:
+        Dentro do método authenticate_user, o método checkUser da classe DataRecord é chamado.
+        Este método percorre a lista de usuários (__user_accounts) e verifica se há um usuário com o username e password correspondentes.
+        Se as credenciais forem válidas, um session_id único é gerado usando uuid.uuid4() e o usuário é adicionado ao dicionário __authenticated_users com o session_id como chave.
+        O session_id e o username são então retornados para a função action_portal().
+
+    Sessão Autenticada:
+        Se o session_id for válido (não None), ele é armazenado em um cookie HTTP (session_id) que é enviado ao cliente. Este cookie tem atributos de segurança (httponly e secure) e expira em uma hora.
+        O usuário é então redirecionado para a página /pagina/<username>.
+
+Bloqueio de Login Simultâneo
+
+    Logout Automático de Sessões Ativas:
+        Quando um usuário autentica com sucesso, o método logout_user é chamado.
+        Este método remove o session_id anterior do dicionário __authenticated_users, se existir, efetivamente forçando o logout de qualquer outra sessão ativa desse usuário.
+
+    Verificação de Sessão Ativa:
+        Quando um usuário tenta acessar a página /pagina/<username>, o método is_authenticated verifica se o username fornecido corresponde ao username da sessão atual armazenada no cookie session_id.
+        Se outro navegador tentar autenticar com o mesmo usuário, a sessão antiga é substituída pela nova, e o primeiro navegador será efetivamente desconectado na próxima tentativa de acesso a uma rota protegida.
+
+Resumo
+
+    O fluxo de login começa na página /portal e, após a autenticação bem-sucedida, o usuário é redirecionado para a página /pagina/<username>, com a sessão sendo gerida por cookies HTTP.
+    Para evitar logins simultâneos, o sistema desconecta automaticamente qualquer sessão ativa existente para um determinado usuário quando uma nova sessão é autenticada. Isso é feito removendo o session_id anterior ao criar um novo. Assim, se um usuário tentar acessar a conta em outro navegador, ele "derruba" a sessão anterior.
